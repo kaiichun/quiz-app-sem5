@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/loginFragment">
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.alvin.quiz.ui.screens.login.LoginFragment"
+        android:label="Login"
+        tools:layout="@layout/fragment_login" >
+        <action
+            android:id="@+id/actionLoginToRegister"
+            app:destination="@id/registerFragment" />
+        <action
+            android:id="@+id/actionLoginToStudentHome"
+            app:destination="@id/studentHomeFragment" />
+        <action
+            android:id="@+id/actionLoginToTeacherHome"
+            app:destination="@id/teacherHomeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/registerFragment"
+        android:name="com.alvin.quiz.ui.screens.register.RegisterFragment"
+        android:label="Register"
+        tools:layout="@layout/fragment_register" >
+        <action
+            android:id="@+id/actionRegisterToLogin"
+            app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/actionRegisterToStudentHome"
+            app:destination="@id/studentHomeFragment" />
+        <action
+            android:id="@+id/actionRegisterToTeacherHome"
+            app:destination="@id/teacherHomeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/studentHomeFragment"
+        android:name="com.alvin.quiz.ui.screens.student.home.StudentHomeFragment"
+        android:label="fragment_student_home"
+        tools:layout="@layout/fragment_student_home" />
+    <fragment
+        android:id="@+id/teacherHomeFragment"
+        android:name="com.alvin.quiz.ui.screens.teacher.home.TeacherHomeFragment"
+        android:label="fragment_teacher_home"
+        tools:layout="@layout/fragment_teacher_home" />
+</navigation>

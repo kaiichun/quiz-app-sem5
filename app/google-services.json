@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "958087842882",
+    "project_id": "quiz-app-fcs5-1508",
+    "storage_bucket": "quiz-app-fcs5-1508.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:958087842882:android:13f3db05ed9749d63671db",
+        "android_client_info": {
+          "package_name": "com.alvin.quiz"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCSJDQg6ZX_hR5ax0uM7Wfczxu9TVm_bQI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
