@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ui.screens.teacher.addEditView.add.question.AddQuestionFragment">
+
+
+        <LinearLayout
+            android:padding="@dimen/xl"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/etQuestionText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Enter Question"
+                android:inputType="text"/>
+
+            <!-- Option 1 -->
+            <EditText
+                android:id="@+id/etOption1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Option 1"
+                android:inputType="text"
+                android:layout_marginTop="16dp"/>
+
+            <!-- Option 2 -->
+            <EditText
+                android:id="@+id/etOption2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Option 2"
+                android:inputType="text"
+                android:layout_marginTop="8dp"/>
+
+            <!-- Option 3 -->
+            <EditText
+                android:id="@+id/etOption3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Option 3"
+                android:inputType="text"
+                android:layout_marginTop="8dp"/>
+
+            <!-- Option 4 -->
+            <EditText
+                android:id="@+id/etOption4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Option 4"
+                android:inputType="text"
+                android:layout_marginTop="8dp"/>
+
+            <!-- Correct Answer Selection -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Set Correct Answer:"
+                android:layout_marginTop="16dp"/>
+
+            <RadioGroup
+                android:id="@+id/rgCorrectAnswer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <RadioButton
+                    android:id="@+id/rbOption1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Option 1"/>
+
+                <RadioButton
+                    android:id="@+id/rbOption2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Option 2"/>
+
+                <RadioButton
+                    android:id="@+id/rbOption3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Option 3"/>
+
+                <RadioButton
+                    android:id="@+id/rbOption4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Option 4"/>
+            </RadioGroup>
+
+            <!-- Save Button -->
+            <Button
+                android:id="@+id/btnSaveQuestion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Save Question"
+                android:layout_marginTop="24dp"/>
+        </LinearLayout>
+</layout>

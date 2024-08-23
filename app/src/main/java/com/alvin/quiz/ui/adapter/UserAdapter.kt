@@ -42,19 +42,6 @@ class UserAdapter(
             binding.tvFullName.text = "${user.firstName} ${user.lastName}"
             binding.tvEmail.text = user.email
             binding.tvRole.text = user.role.toString()
-
-            // Assuming you have an ImageView for profile picture and a method to load images
-            user.profilePicture?.let { url ->
-                // Load image using your preferred image loading library
-                // For example, using Glide:
-                // Glide.with(binding.ivProfilePicture.context)
-                //     .load(url)
-                //     .into(binding.ivProfilePicture)
-            } ?: run {
-                // Set a placeholder image if profilePicture is null
-                // binding.ivProfilePicture.setImageResource(R.drawable.placeholder_image)
-            }
-
             binding.root.setOnClickListener {
                 listener?.onClick(user)
             }

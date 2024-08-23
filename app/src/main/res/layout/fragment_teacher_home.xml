@@ -1,15 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.screens.teacher.home.TeacherHomeFragment">
-
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+<layout>
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Hello This Is TEACHER Home" />
+        android:gravity="center"
+        android:orientation="vertical"
+        tools:context=".ui.screens.teacher.home.TeacherHomeFragment">
 
-</FrameLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Hello This Is TEACHER Home"
+            android:layout_marginBottom="@dimen/s"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnDashboard"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minHeight="0dp"
+            android:minWidth="0dp"
+            android:text="@string/dashboard"
+            android:backgroundTint="@color/red"/>
+
+    </LinearLayout>
+</layout>

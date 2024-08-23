@@ -1,6 +1,5 @@
 package com.alvin.quiz.data.model
 
-import com.alvin.quiz.core.di.utils.QuestionState
 import com.alvin.quiz.core.di.utils.UserRole
 
 data class User(
@@ -27,7 +26,7 @@ data class User(
                 firstName = map["firstName"] as? String ?: "",
                 lastName = map["lastName"] as? String ?: "",
                 email = map["email"] as? String ?: "",
-                role =  UserRole.valueOf(map["role"] as? String ?: UserRole.STUDENT.name),
+                role =  UserRole.valueOf(map["role"] as? String ?: UserRole.STUDENT.toString()),
                 profilePicture = map["profilePicture"] as? String
             )
         }

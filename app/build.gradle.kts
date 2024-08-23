@@ -60,6 +60,12 @@ dependencies {
     // Glide
     implementation("com.github.bumptech.glide:glide:4.16.0")
 
+    // Circle Image View
+    implementation("de.hdodenhof:circleimageview:3.1.0")
+
+    // CSV Render
+    implementation("org.apache.commons:commons-csv:1.5")
+
     // Navigation
     val navigation_version = "2.7.7"
     implementation("androidx.navigation:navigation-fragment-ktx:$navigation_version")

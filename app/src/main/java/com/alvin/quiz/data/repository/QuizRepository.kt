@@ -4,7 +4,6 @@ import com.alvin.quiz.core.service.AuthService
 import com.alvin.quiz.data.model.Quiz
 import com.google.firebase.Firebase
 import com.google.firebase.firestore.CollectionReference
-import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.firestore
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.callbackFlow
@@ -35,9 +34,14 @@ class QuizRepository(private val authService: AuthService) {
         }
     }
 
-    suspend fun addQuiz(quiz: Quiz): String? {
-        val response = getCollection().add(quiz.toMap()).await()
-        return response?.id
+    suspend fun addQuiz(quiz: Quiz): String {
+        val quizDocument = getCollection().document(quiz.quizId)
+        quizDocument.set(quiz.toMap()).await()
+        return quizDocument.id
+    }
+
+    fun getNewQuizId(): String {
+        return getCollection().document().id
     }
 
     suspend fun deleteQuiz(id: String) {

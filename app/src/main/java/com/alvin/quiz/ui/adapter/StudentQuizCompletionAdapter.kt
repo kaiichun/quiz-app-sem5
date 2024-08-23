@@ -39,18 +39,8 @@ class StudentQuizCompletionAdapter(
         private val binding: LayoutStudentQuizCompletionCardViewBinding
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(completion: StudentQuizCompletion) {
-            // Assuming you have a method to fetch user details by studentId
-            // For now, we'll display the studentId
             binding.tvStudentId.text = "Student ID: ${completion.studentId}"
-            binding.tvCompletionTimes.text = "Times Completed: ${completion.completionTimes}"
             binding.tvTotalScore.text = "Total Score: ${completion.totalScore}"
-
-            val averageScore = if (completion.completionTimes > 0) {
-                completion.totalScore.toDouble() / completion.completionTimes
-            } else {
-                0.0
-            }
-            binding.tvAverageScore.text = "Average Score: ${String.format("%.2f", averageScore)}"
 
             binding.root.setOnClickListener {
                 listener?.onClick(completion)

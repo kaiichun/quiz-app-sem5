@@ -10,6 +10,7 @@ import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.tasks.await
 
+
 class StudentResultRepository(private val authService: AuthService) {
     private fun getCollection(quizId: String, studentId: String): CollectionReference {
         val uid = authService.getUid() ?: throw Exception("User ID doesn't exist")
@@ -25,7 +26,7 @@ class StudentResultRepository(private val authService: AuthService) {
             value?.documents?.map { item ->
                 item.data?.let { resultMap ->
                     val result = StudentResult.fromMap(resultMap)
-                    results.add(result.copy(attemptNumber = item.id.toInt()))
+                    results.add(result)  // No longer copying with attemptNumber
                 }
             }
             trySend(results)
@@ -46,6 +47,6 @@ class StudentResultRepository(private val authService: AuthService) {
 
     suspend fun getResultById(quizId: String, studentId: String, resultId: String): StudentResult? {
         val res = getCollection(quizId, studentId).document(resultId).get().await()
-        return res.data?.let { StudentResult.fromMap(it).copy(attemptNumber = res.id.toInt()) }
+        return res.data?.let { StudentResult.fromMap(it) }
     }
 }

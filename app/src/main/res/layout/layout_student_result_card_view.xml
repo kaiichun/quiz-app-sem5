@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
-    <androidx.cardview.widget.CardView
-        xmlns:android="http://schemas.android.com/apk/res/android"
+    <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -16,26 +15,17 @@
             android:padding="16dp">
 
             <TextView
-                android:id="@+id/tvAttemptNumber"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Attempt: 1"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-
-            <TextView
                 android:id="@+id/tvScore"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Score: 80"
-                android:layout_marginTop="8dp"
+                android:text="Score: 0"
                 android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/tvCompletedAt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Completed At: 2024-08-15 10:30:00"
+                android:text="Completed At: 2024-01-01 12:00:00"
                 android:layout_marginTop="8dp"
                 android:textSize="16sp" />
 

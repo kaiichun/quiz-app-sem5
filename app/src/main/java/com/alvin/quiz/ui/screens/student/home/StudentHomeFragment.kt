@@ -6,7 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.alvin.quiz.R
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class StudentHomeFragment : Fragment() {
 
     override fun onCreateView(

@@ -10,7 +10,7 @@ import java.util.Date
 import java.util.Locale
 
 class StudentResultAdapter(
-    private var results: List<StudentResult>
+private var results: List<StudentResult>
 ) : RecyclerView.Adapter<StudentResultAdapter.StudentResultViewHolder>() {
 
     var listener: Listener? = null
@@ -42,7 +42,6 @@ class StudentResultAdapter(
         private val binding: LayoutStudentResultCardViewBinding
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(result: StudentResult) {
-            binding.tvAttemptNumber.text = "Attempt: ${result.attemptNumber}"
             binding.tvScore.text = "Score: ${result.score}"
 
             val dateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())

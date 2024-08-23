@@ -10,8 +10,6 @@ class QuestionAdapter(
     private var questions: List<Question>
 ) : RecyclerView.Adapter<QuestionAdapter.QuestionViewHolder>() {
 
-    var listener: Listener? = null
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): QuestionViewHolder {
         val binding = LayoutQuestionCardViewBinding.inflate(
             LayoutInflater.from(parent.context),
@@ -21,9 +19,7 @@ class QuestionAdapter(
         return QuestionViewHolder(binding)
     }
 
-    override fun getItemCount(): Int {
-        return questions.size
-    }
+    override fun getItemCount(): Int = questions.size
 
     override fun onBindViewHolder(holder: QuestionViewHolder, position: Int) {
         val item = questions[position]
@@ -40,47 +36,10 @@ class QuestionAdapter(
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(question: Question) {
             binding.tvQuestionText.text = question.questionText
-
-            // Display options
-            binding.tvOptionA.text = "A. ${question.options.getOrNull(0) ?: ""}"
-            binding.tvOptionB.text = "B. ${question.options.getOrNull(1) ?: ""}"
-            binding.tvOptionC.text = "C. ${question.options.getOrNull(2) ?: ""}"
-            binding.tvOptionD.text = "D. ${question.options.getOrNull(3) ?: ""}"
-
-            // Highlight the correct answer (e.g., in green)
-            val correctOptionIndex = question.correctAnswer
-            val optionTextViews = listOf(
-                binding.tvOptionA,
-                binding.tvOptionB,
-                binding.tvOptionC,
-                binding.tvOptionD
-            )
-            optionTextViews.forEachIndexed { index, textView ->
-                if (index == correctOptionIndex) {
-                    // Set text color to green or any indicator
-                    // textView.setTextColor(ContextCompat.getColor(textView.context, R.color.green))
-                } else {
-                    // Set text color to default
-                    // textView.setTextColor(ContextCompat.getColor(textView.context, R.color.black))
-                }
-            }
-
-            // Display question state
-            binding.tvState.text = question.state.name
-
-            binding.root.setOnClickListener {
-                listener?.onClick(question)
-            }
-
-            binding.root.setOnLongClickListener {
-                listener?.onLongClick(question)
-                return@setOnLongClickListener true
-            }
+            binding.tvOptionA.text = "A. ${question.options[0]}"
+            binding.tvOptionB.text = "B. ${question.options[1]}"
+            binding.tvOptionC.text = "C. ${question.options[2]}"
+            binding.tvOptionD.text = "D. ${question.options[3]}"
         }
-    }
-
-    interface Listener {
-        fun onClick(question: Question)
-        fun onLongClick(question: Question)
     }
 }

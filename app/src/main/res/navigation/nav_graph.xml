@@ -43,5 +43,39 @@
         android:id="@+id/teacherHomeFragment"
         android:name="com.alvin.quiz.ui.screens.teacher.home.TeacherHomeFragment"
         android:label="fragment_teacher_home"
-        tools:layout="@layout/fragment_teacher_home" />
+        tools:layout="@layout/fragment_teacher_home" >
+        <action
+            android:id="@+id/actionTeacherHomeToTeacherDashboard"
+            app:destination="@id/teacherDashboardFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/teacherDashboardFragment"
+        android:name="com.alvin.quiz.ui.screens.teacher.dashboard.TeacherDashboardFragment"
+        android:label="TeacherDashboardFragment"
+        tools:layout="@layout/fragment_teacher_dashboard">
+        <action
+            android:id="@+id/actionTeacherDashboardToAddQuiz"
+            app:destination="@id/addQuizFragment" />
+        <action
+            android:id="@+id/actionTeacherDashboardToEditQuiz"
+            app:destination="@id/editQuizFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/addQuizFragment"
+        android:name="com.alvin.quiz.ui.screens.teacher.addEditView.add.AddQuizFragment"
+        android:label="fragment_add_edit_quiz"
+        tools:layout="@layout/fragment_add_edit_quiz" />
+    <fragment
+        android:id="@+id/editQuizFragment"
+        android:name="com.alvin.quiz.ui.screens.teacher.addEditView.edit.EditQuizFragment"
+        android:label="fragment_add_edit_quiz"
+        tools:layout="@layout/fragment_add_edit_quiz" >
+        <argument
+            android:name="quizId"
+            app:argType="string" />
+        <action
+            android:id="@+id/actionEditQuizToTeacherDashboard"
+            app:destination="@id/teacherDashboardFragment" />
+    </fragment>
 </navigation>

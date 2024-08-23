@@ -40,6 +40,7 @@ class QuestionRepository(private val authService: AuthService) {
         return response?.id
     }
 
+
     suspend fun deleteQuestion(quizId: String, questionId: String) {
         getCollection(quizId).document(questionId).delete().await()
     }

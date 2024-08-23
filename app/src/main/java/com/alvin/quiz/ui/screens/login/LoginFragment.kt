@@ -11,11 +11,14 @@ import com.alvin.quiz.databinding.FragmentLoginBinding
 import com.alvin.quiz.ui.screens.base.BaseFragment
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import kotlin.random.Random
 
 @AndroidEntryPoint
 class LoginFragment : BaseFragment<FragmentLoginBinding>() {
     override val viewModel: LoginViewModel by viewModels()
+
     override fun getLayoutResource() = R.layout.fragment_login
 
     override fun onBindView(view: View) {
@@ -50,9 +53,15 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
 
         lifecycleScope.launch {
             viewModel.isLoading.collect { isLoading ->
-                binding?.loadingOverlay?.isVisible = isLoading
+                if (isLoading) {
+                    binding?.loadingOverlay?.isVisible = true
+                    loading()
+                } else {
+                    binding?.loadingOverlay?.isVisible = false
+                }
             }
         }
+
 
         lifecycleScope.launch {
             viewModel.error.collect { errorMessage ->
@@ -62,4 +71,26 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
             }
         }
     }
+
+    private fun loading() {
+        binding?.loadingOverlay?.isVisible = true
+        val tvLoadingText = binding?.tvLoadingText
+
+        lifecycleScope.launch {
+            var progress = 0
+            while (progress < 100) {
+                val randomIncrement = Random.nextInt(1, 15)
+                progress += randomIncrement
+
+                if (progress > 100) {
+                    progress = 100
+                }
+
+                tvLoadingText?.text = getString(R.string.verifying, progress)
+                delay(Random.nextLong(50, 250))
+            }
+            binding?.loadingOverlay?.isVisible = false
+        }
+    }
+
 }

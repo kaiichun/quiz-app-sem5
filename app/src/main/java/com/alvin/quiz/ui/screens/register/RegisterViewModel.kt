@@ -52,7 +52,6 @@ class RegisterViewModel @Inject constructor(
                             role = userRole
                         )
                     )
-                    // Emit the user role after registration
                     _success.emit(userRole)
                 }
                 _isLoading.emit(false)

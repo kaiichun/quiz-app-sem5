@@ -2,6 +2,7 @@ package com.alvin.quiz.ui.screens.base
 
 import androidx.lifecycle.ViewModel
 import com.alvin.quiz.core.di.utils.UserRole
+import com.alvin.quiz.data.model.Quiz
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
@@ -10,6 +11,9 @@ import kotlinx.coroutines.flow.StateFlow
 abstract class BaseViewModel : ViewModel() {
     protected val _error = MutableSharedFlow<String>()
     val error: SharedFlow<String> = _error
+
+    private val _quizzes = MutableStateFlow<List<Quiz>>(emptyList())
+    open val quizzes: StateFlow<List<Quiz>> = _quizzes
 
     open val finish: MutableSharedFlow<Unit> = MutableSharedFlow()
 
