@@ -13,7 +13,7 @@ import kotlinx.coroutines.tasks.await
 class QuestionRepository(private val authService: AuthService) {
     private fun getCollection(quizId: String): CollectionReference {
         val uid = authService.getUid() ?: throw Exception("User ID doesn't exist")
-        return Firebase.firestore.collection("root_db/$uid/quizzes/$quizId/questions")
+        return Firebase.firestore.collection("quizzes/$quizId/questions")
     }
 
     fun getAllQuestions(quizId: String) = callbackFlow<List<Question>> {

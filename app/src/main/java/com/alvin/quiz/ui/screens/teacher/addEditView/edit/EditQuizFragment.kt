@@ -6,6 +6,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -17,33 +18,20 @@ import com.alvin.quiz.ui.adapter.QuestionAdapter
 import com.alvin.quiz.ui.screens.teacher.addEditView.base.BaseAddEditQuizFragment
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
+import kotlin.random.Random
 
 @AndroidEntryPoint
 class EditQuizFragment : BaseAddEditQuizFragment() {
 
     override val viewModel: EditQuizViewModel by viewModels()
     private val args: EditQuizFragmentArgs by navArgs()
-
     private lateinit var questionAdapter: QuestionAdapter
     override fun getLayoutResource() = R.layout.fragment_add_edit_quiz
-
-    private val csvFilePickerLauncher = registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
-        uri?.let {
-            val questions = CSVUtils.readCSVFile(requireContext(), it)
-            if (questions.isNotEmpty()) {
-                viewModel.setQuestions(questions)
-                questionAdapter.setQuestions(questions)
-                questionAdapter.notifyDataSetChanged()
-                Toast.makeText(requireContext(), "CSV uploaded successfully!", Toast.LENGTH_SHORT).show()
-            } else {
-                Toast.makeText(requireContext(), "No questions found in the CSV.", Toast.LENGTH_SHORT).show()
-            }
-        }
-    }
 
     override fun onBindData(view: View) {
         super.onBindData(view)
@@ -54,18 +42,28 @@ class EditQuizFragment : BaseAddEditQuizFragment() {
         super.onBindView(view)
 
         questionAdapter = QuestionAdapter(emptyList())
-
         setupRecyclerView()
         setupUploadButton()
-
         lifecycleScope.launch {
             viewModel.quiz.collect { quiz ->
                 quiz?.let {
                     binding?.etQuizTitle?.setText(it.title)
+                    binding?.etDescription?.setText(it.description)
                     binding?.etPublishDate?.setText(it.publishDate?.let { date -> date(date) })
                     binding?.etExpiryDate?.setText(it.expiryDate?.let { date -> date(date) })
                     questionAdapter.setQuestions(it.questions)
                     questionAdapter.notifyDataSetChanged()
+                }
+            }
+        }
+
+        lifecycleScope.launch {
+            viewModel.isLoading.collect { isLoading ->
+                if (isLoading) {
+                    binding?.loadingOverlay?.isVisible = true
+                    loading()
+                } else {
+                    binding?.loadingOverlay?.isVisible = false
                 }
             }
         }
@@ -81,20 +79,50 @@ class EditQuizFragment : BaseAddEditQuizFragment() {
 
     }
 
-    private fun date(date: Date): String {
-        val format = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-        return format.format(date)
-    }
-
     private fun setupRecyclerView() {
         val layoutManager = LinearLayoutManager(requireContext())
         binding?.rvQuestion?.adapter = questionAdapter
         binding?.rvQuestion?.layoutManager = layoutManager
     }
 
+    private val csvFilePickerLauncher = registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
+        uri?.let {
+            val questions = CSVUtils.readCSVFile(requireContext(), it)
+            if (questions.isNotEmpty()) {
+                viewModel.setQuestions(questions)
+                questionAdapter.setQuestions(questions)
+                questionAdapter.notifyDataSetChanged()
+                Toast.makeText(requireContext(), "CSV uploaded successfully!", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(requireContext(), "No questions found in the CSV.", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
     private fun setupUploadButton() {
         binding?.btnUploadCsv?.setOnClickListener {
             csvFilePickerLauncher.launch("text/*")
+        }
+    }
+
+    private fun loading() {
+        binding?.loadingOverlay?.isVisible = true
+        val tvLoadingText = binding?.tvLoadingText
+
+        lifecycleScope.launch {
+            var progress = 0
+            while (progress < 100) {
+                val randomIncrement = Random.nextInt(1, 15)
+                progress += randomIncrement
+
+                if (progress > 100) {
+                    progress = 100
+                }
+
+                tvLoadingText?.text = getString(R.string.creating, progress)
+                delay(Random.nextLong(50, 250))
+            }
+            binding?.loadingOverlay?.isVisible = false
         }
     }
 }

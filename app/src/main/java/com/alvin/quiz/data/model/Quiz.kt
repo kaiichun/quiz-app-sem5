@@ -13,7 +13,8 @@ data class Quiz(
     val updatedBy: String? = null,
     val updatedAt: Date? = null,
     val publishDate: Date? = null,
-    val expiryDate: Date? = null
+    val expiryDate: Date? = null,
+    val accessId: String = generateAccessId(),
 ) {
     fun toMap(): Map<String, Any?> {
         return hashMapOf(
@@ -27,11 +28,17 @@ data class Quiz(
             "updatedBy" to updatedBy,
             "updatedAt" to updatedAt,
             "publishDate" to publishDate?.time,
-            "expiryDate" to expiryDate?.time
+            "expiryDate" to expiryDate?.time,
+            "accessId" to accessId,
         )
     }
 
+
+
     companion object {
+        fun generateAccessId(): String {
+            return (100000..999999).random().toString()
+        }
         fun fromMap(map: Map<String, Any?>): Quiz {
             val questionsList = (map["questions"] as? List<Map<String, Any?>>)?.map { Question.fromMap(it) } ?: emptyList()
             return Quiz(
@@ -45,7 +52,8 @@ data class Quiz(
                 updatedBy = map["updatedBy"] as? String,
                 updatedAt = map["updatedAt"]?.let { Date(it as Long) },
                 publishDate = map["publishDate"]?.let { Date(it as Long) },
-                expiryDate = map["expiryDate"]?.let { Date(it as Long) }
+                expiryDate = map["expiryDate"]?.let { Date(it as Long) },
+                accessId = map["accessId"] as? String ?: ""
             )
         }
     }

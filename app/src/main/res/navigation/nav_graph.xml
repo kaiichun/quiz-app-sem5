@@ -37,12 +37,20 @@
     <fragment
         android:id="@+id/studentHomeFragment"
         android:name="com.alvin.quiz.ui.screens.student.home.StudentHomeFragment"
-        android:label="fragment_student_home"
-        tools:layout="@layout/fragment_student_home" />
+        android:label="Home"
+        tools:layout="@layout/fragment_student_home" >
+        <action
+            android:id="@+id/actionStudentHomeToQuizView"
+            app:destination="@id/quizViewFragment">
+            <argument
+                android:name="quizId"
+                app:argType="string"/>
+        </action>
+    </fragment>
     <fragment
         android:id="@+id/teacherHomeFragment"
         android:name="com.alvin.quiz.ui.screens.teacher.home.TeacherHomeFragment"
-        android:label="fragment_teacher_home"
+        android:label="Home"
         tools:layout="@layout/fragment_teacher_home" >
         <action
             android:id="@+id/actionTeacherHomeToTeacherDashboard"
@@ -51,7 +59,7 @@
     <fragment
         android:id="@+id/teacherDashboardFragment"
         android:name="com.alvin.quiz.ui.screens.teacher.dashboard.TeacherDashboardFragment"
-        android:label="TeacherDashboardFragment"
+        android:label="Dashboard"
         tools:layout="@layout/fragment_teacher_dashboard">
         <action
             android:id="@+id/actionTeacherDashboardToAddQuiz"
@@ -64,12 +72,12 @@
     <fragment
         android:id="@+id/addQuizFragment"
         android:name="com.alvin.quiz.ui.screens.teacher.addEditView.add.AddQuizFragment"
-        android:label="fragment_add_edit_quiz"
+        android:label="Create Quiz"
         tools:layout="@layout/fragment_add_edit_quiz" />
     <fragment
         android:id="@+id/editQuizFragment"
         android:name="com.alvin.quiz.ui.screens.teacher.addEditView.edit.EditQuizFragment"
-        android:label="fragment_add_edit_quiz"
+        android:label="Edit Quiz"
         tools:layout="@layout/fragment_add_edit_quiz" >
         <argument
             android:name="quizId"
@@ -78,4 +86,21 @@
             android:id="@+id/actionEditQuizToTeacherDashboard"
             app:destination="@id/teacherDashboardFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/quizViewFragment"
+        android:name="com.alvin.quiz.ui.screens.student.quiz.QuizViewFragment"
+        android:label="Quiz"
+        tools:layout="@layout/fragment_quiz_view">
+        <argument
+            android:name="quizId"
+            app:argType="string" />
+        <action
+            android:id="@+id/actionQuizViewToStudentHome"
+            app:destination="@id/studentHomeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.alvin.quiz.ui.screens.profile.ProfileFragment"
+        android:label="Profile"
+        tools:layout="@layout/fragment_profile"/>
 </navigation>

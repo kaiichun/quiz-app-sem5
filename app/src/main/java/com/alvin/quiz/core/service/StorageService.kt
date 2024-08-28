@@ -9,8 +9,7 @@ class StorageService(
 ) {
     private  val storageReference = FirebaseStorage.getInstance().getReference("images/")
     private fun createImageName(): String? {
-        val uid = authService.getUid() ?: return null
-        return "${uid.take(5)}_${System.nanoTime()}"
+        return authService.getUid() ?: return null
     }
     fun uploadImage(uri: Uri, name: String?, callback:(String?) -> Unit) {
         val imageName = name ?: createImageName()

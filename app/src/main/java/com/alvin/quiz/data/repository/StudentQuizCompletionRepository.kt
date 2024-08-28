@@ -1,6 +1,8 @@
 package com.alvin.quiz.data.repository
 
+import android.util.Log
 import com.alvin.quiz.core.service.AuthService
+import com.alvin.quiz.data.model.Quiz
 import com.alvin.quiz.data.model.StudentQuizCompletion
 import com.google.firebase.Firebase
 import com.google.firebase.firestore.CollectionReference
@@ -11,21 +13,22 @@ import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.tasks.await
 
 class StudentQuizCompletionRepository(private val authService: AuthService) {
-    private fun getCollection(quizId: String): CollectionReference {
-        val uid = authService.getUid() ?: throw Exception("User ID doesn't exist")
-        return Firebase.firestore.collection("root_db/$uid/quizzes/$quizId/completions")
+
+    private fun getCollection(): CollectionReference {
+        return Firebase.firestore.collection("completions")
     }
 
-    fun getAllCompletions(quizId: String) = callbackFlow<List<StudentQuizCompletion>> {
-        val listener = getCollection(quizId).addSnapshotListener { value, error ->
+    fun getAllCompletions() = callbackFlow<List<StudentQuizCompletion>> {
+        val listener = getCollection().addSnapshotListener { value, error ->
             if (error != null) {
-                throw error
+                Log.e("StudentQuizCompletionRepo", "Error fetching completions", error)
+                return@addSnapshotListener
             }
             val completions = mutableListOf<StudentQuizCompletion>()
             value?.documents?.map { item ->
                 item.data?.let { completionMap ->
-                    val completion = StudentQuizCompletion.fromMap(completionMap)
-                    completions.add(completion.copy(completionId = item.id))
+                    val completion = StudentQuizCompletion.fromMap(completionMap, item.id)
+                    completions.add(completion)
                 }
             }
             trySend(completions)
@@ -35,23 +38,8 @@ class StudentQuizCompletionRepository(private val authService: AuthService) {
         }
     }
 
-    suspend fun addCompletion(quizId: String, completion: StudentQuizCompletion): String? {
-        val response = getCollection(quizId).add(completion.toMap()).await()
-        return response?.id
-    }
-
-    suspend fun deleteCompletion(quizId: String, completionId: String) {
-        getCollection(quizId).document(completionId).delete().await()
-    }
-
-    suspend fun updateCompletion(quizId: String, completion: StudentQuizCompletion) {
-        if (completion.completionId != null) {
-            getCollection(quizId).document(completion.completionId).set(completion.toMap()).await()
-        }
-    }
-
-    suspend fun getCompletionById(quizId: String, completionId: String): StudentQuizCompletion? {
-        val res = getCollection(quizId).document(completionId).get().await()
-        return res.data?.let { StudentQuizCompletion.fromMap(it).copy(completionId = res.id) }
+    suspend fun addCompletion(completion: StudentQuizCompletion) {
+        val docRef = getCollection().document(completion.studentId)
+        docRef.set(completion.toMap()).await()
     }
 }

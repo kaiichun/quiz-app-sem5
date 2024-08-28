@@ -1,101 +1,196 @@
 <layout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".ui.screens.teacher.addEditView.add.AddQuizFragment">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="16dp">
+        android:layout_height="match_parent"
+        android:layout_marginTop="65sp"
+        >
 
-        <!-- Quiz Title Section -->
-        <TextView
-            android:id="@+id/quizTitleTextView"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:id="@+id/linearLayout2"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Create a Quiz"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <!-- Quiz Title Section -->
+            <!--        <TextView-->
+            <!--            android:id="@+id/quizTitleTextView"-->
+            <!--            android:layout_width="wrap_content"-->
+            <!--            android:layout_height="wrap_content"-->
+            <!--            android:text="Create a Quiz"-->
+            <!--            android:layout_gravity="center"-->
+            <!--            android:layout_marginBottom="@dimen/s"-->
+            <!--            android:textSize="24sp"-->
+            <!--            android:textStyle="bold" />-->
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Quiz Title"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+            <EditText
+                android:id="@+id/etQuizTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Enter quiz title" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/description"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+            <EditText
+                android:id="@+id/etDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Enter quiz description" />
+
+            <LinearLayout
+                android:id="@+id/linearLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/xxxxs"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Publish Date"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+                    <EditText
+                        android:id="@+id/etPublishDate"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:focusable="false"
+                        android:hint="Select Publish Date"
+                        android:onClick="showPublishDatePicker" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/xxxxs"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+                        android:text="Expiry Date"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+                    <EditText
+                        android:id="@+id/etExpiryDate"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:focusable="false"
+                        android:hint="Select Expiry Date"
+                        android:onClick="showExpiryDatePicker" />
+                </LinearLayout>
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="18dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tvSelectedQuestions"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_weight="2"
+                    android:text="Upload Questions:"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+                <Button
+                    android:id="@+id/btnUploadCsv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:layout_marginTop="16dp"
+                    android:layout_weight="1"
+                    android:drawableLeft="@drawable/ic_upload_file"
+                    android:minWidth="0dp"
+                    android:minHeight="0dp"
+                    android:text="@string/upload" />
+            </LinearLayout>
+
+            <!-- RecyclerView to Display Questions -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvQuestion"
+                android:layout_width="match_parent"
+                android:layout_height="240dp"
+                android:layout_marginTop="16dp" />
+
+            <!-- Save Quiz Button -->
+            <Button
+                android:id="@+id/btnSaveQuiz"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="Save Quiz" />
+
+
+        </LinearLayout>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/loading_overlay"
+            android:layout_width="250sp"
+            android:layout_height="250sp"
             android:layout_gravity="center"
-            android:layout_marginBottom="@dimen/s"
-            android:textSize="24sp"
-            android:textStyle="bold" />
+            android:backgroundTint="@color/blue"
+            android:visibility="visible"
+            app:cardCornerRadius="@dimen/l"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Quiz Title"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginEnd="50dp"
+                android:layout_marginBottom="30dp"
+                android:gravity="center"
+                android:orientation="vertical">
 
-        <EditText
-            android:id="@+id/etQuizTitle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Enter quiz title" />
+                <ProgressBar
+                    android:layout_width="65sp"
+                    android:layout_height="65sp"
+                    android:indeterminateTint="@color/white" />
 
-        <!-- Publish Date Section -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="Publish Date"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+                <TextView
+                    android:id="@+id/tvLoadingText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10sp"
+                    android:text="@string/creating"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
 
-        <EditText
-            android:id="@+id/etPublishDate"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:focusable="false"
-            android:hint="Select Publish Date"
-            android:onClick="showPublishDatePicker" />
-
-        <!-- Expiry Date Section -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="Expiry Date"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
-
-        <EditText
-            android:id="@+id/etExpiryDate"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:focusable="false"
-            android:hint="Select Expiry Date"
-            android:onClick="showExpiryDatePicker" />
-        <!-- Question Selection Section -->
-        <TextView
-            android:id="@+id/tvSelectedQuestions"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="Select Questions:"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
-
-        <Button
-            android:id="@+id/btnUploadCsv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end"
-            android:minWidth="0dp"
-            android:minHeight="0dp"
-            android:text="Upload CSV"
-            android:layout_marginTop="16dp" />
-
-        <!-- RecyclerView to Display Questions -->
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvQuestion"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:layout_marginTop="16dp" />
-
-        <!-- Save Quiz Button -->
-        <Button
-            android:id="@+id/btnSaveQuiz"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:text="Save Quiz" />
-
-    </LinearLayout>
+        </androidx.cardview.widget.CardView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

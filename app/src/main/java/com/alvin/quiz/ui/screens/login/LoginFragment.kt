@@ -18,9 +18,7 @@ import kotlin.random.Random
 @AndroidEntryPoint
 class LoginFragment : BaseFragment<FragmentLoginBinding>() {
     override val viewModel: LoginViewModel by viewModels()
-
     override fun getLayoutResource() = R.layout.fragment_login
-
     override fun onBindView(view: View) {
         super.onBindView(view)
         binding?.btnRegisterPage?.setOnClickListener {

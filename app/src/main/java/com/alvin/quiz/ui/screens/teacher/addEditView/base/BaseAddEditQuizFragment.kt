@@ -12,10 +12,18 @@ import com.alvin.quiz.ui.screens.base.BaseFragment
 import kotlinx.coroutines.launch
 
 import android.app.DatePickerDialog
+import android.net.Uri
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.alvin.quiz.core.di.utils.CSVUtils
+import com.alvin.quiz.ui.adapter.QuestionAdapter
+import java.text.SimpleDateFormat
 import java.util.Calendar
+import java.util.Date
+import java.util.Locale
 
 abstract class BaseAddEditQuizFragment : BaseFragment<FragmentAddEditQuizBinding>() {
-
+    private lateinit var questionAdapter: QuestionAdapter
     override val viewModel: BaseAddEditQuizViewModel by viewModels()
     override fun getLayoutResource() = R.layout.fragment_add_edit_quiz
 
@@ -30,14 +38,20 @@ abstract class BaseAddEditQuizFragment : BaseFragment<FragmentAddEditQuizBinding
             showExpiryDatePicker(it)
         }
 
+
         binding?.btnSaveQuiz?.setOnClickListener {
             val title = binding?.etQuizTitle?.text.toString()
+            val description = binding?.etDescription?.text.toString()
             val publishDate = binding?.etPublishDate?.text.toString()
             val expiryDate = binding?.etExpiryDate?.text.toString()
 
-            viewModel.saveQuiz(title, publishDate, expiryDate)
+            viewModel.saveQuiz(title, description, publishDate, expiryDate)
         }
+    }
 
+    fun date(date: Date): String {
+        val format = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+        return format.format(date)
     }
 
     private fun showPublishDatePicker(view: View) {

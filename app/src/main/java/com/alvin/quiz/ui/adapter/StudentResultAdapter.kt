@@ -45,7 +45,7 @@ private var results: List<StudentResult>
             binding.tvScore.text = "Score: ${result.score}"
 
             val dateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
-            val date = Date(result.completedAt)
+            val date = Date(result.submittedAt)
             binding.tvCompletedAt.text = "Completed At: ${dateFormat.format(date)}"
 
             binding.root.setOnClickListener {

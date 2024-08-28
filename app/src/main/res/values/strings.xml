@@ -18,7 +18,7 @@
     <string name="password">Password</string>
     <string name="confirm_password">Confirm Password</string>
     <string name="button_register">REGISTER</string>
-<!--    <string name="verifying">Verifying…</string>-->
+    <!--    <string name="verifying">Verifying…</string>-->
     <string name="verifying">Verifying %d %%</string>
     <string name="button_login">LOGIN</string>
     <string name="dont_have_an_account_sign_up_now">don\'t have an account sign up now</string>
@@ -27,9 +27,9 @@
     <string name="last_name">Last Name</string>
     <string name="first_name">First Name</string>
     <string name="no_note_available">No note available</string>
-    <string name="creating">Creating…</string>
+    <string name="creating">Creating %d %%</string>
     <string name="edit">EDIT</string>
-    <string name="loading">Loading…</string>
+    <string name="loading">Loading %d %%</string>
     <string name="logout">Logout</string>
     <string name="profile_image">Profile Image</string>
     <string name="home">Home</string>
@@ -48,4 +48,15 @@
     <string name="publish_date">Publish Date: </string>
     <string name="expiry_date">Expiry Date: </string>
     <string name="date">YYYY-MM-DD</string>
+    <string name="access_quiz">Access Quiz</string>
+    <string name="welcome">Welcome</string>
+    <string name="access">Access</string>
+    <string name="invalid_details">Invalid Access ID, Please contact your teacher!</string>
+    <string name="result">Result</string>
+    <string name="top_ranking">Top Ranking</string>
+    <string name="score">Score</string>
+    <string name="name">Name</string>
+    <string name="upload">Upload</string>
+    <string name="submit">Submitting %d %%</string>
+    <string name="completed_quiz">You have already completed this quiz</string>
 </resources>

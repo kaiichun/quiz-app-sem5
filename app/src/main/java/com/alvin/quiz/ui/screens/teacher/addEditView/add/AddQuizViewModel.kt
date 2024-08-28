@@ -19,41 +19,32 @@ class AddQuizViewModel @Inject constructor(
     private val quizRepository: QuizRepository
 ) : BaseAddEditQuizViewModel() {
 
-    private val _questions = MutableStateFlow<List<Question>>(emptyList())
-    val questions: StateFlow<List<Question>> = _questions
-
-    override fun saveQuiz(title: String, publishDate: String, expiryDate: String) {
+    override fun saveQuiz(title: String,description: String, publishDate: String, expiryDate: String) {
         viewModelScope.launch {
             loading.value = true
             try {
                 val quiz = Quiz(
                     quizId = generateQuizId(),
                     title = title,
+                    description = description,
                     questions = _questions.value,
                     publishDate = parsingDate(publishDate),
                     expiryDate = parsingDate(expiryDate),
                     createdBy = "",
-                    description = ""
                 )
                 quizRepository.addQuiz(quiz)
                 finish.emit(Unit)
             } catch (e: Exception) {
-                _error.emit(e.message ?: "Error")
+                _error.emit(e.message ?: "No match CSV Format")
             } finally {
                 loading.value = false
             }
         }
     }
 
-    fun setQuestions(questions: List<Question>) {
-        _questions.value = questions
-    }
-
-    fun getQuestions(): List<Question> {
-        return _questions.value
-    }
-
     private fun generateQuizId(): String {
         return quizRepository.getNewQuizId()
     }
+
+
 }

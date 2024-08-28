@@ -15,8 +15,17 @@ abstract class BaseAddEditQuizViewModel : BaseViewModel() {
     val loading = MutableStateFlow(false)
     override val isLoading: StateFlow<Boolean> = loading
     override val finish: MutableSharedFlow<Unit> = MutableSharedFlow()
-
     val quiz: MutableStateFlow<Quiz?> = MutableStateFlow(null)
+    protected val _questions = MutableStateFlow<List<Question>>(emptyList())
+    val questions: StateFlow<List<Question>> = _questions
+
+    fun setQuestions(questions: List<Question>) {
+        _questions.value = questions
+    }
+
+    fun getQuestions(): List<Question> {
+        return _questions.value
+    }
 
     fun parsingDate(dateString: String): Date? {
         return if (dateString.isBlank()) {
@@ -27,5 +36,5 @@ abstract class BaseAddEditQuizViewModel : BaseViewModel() {
         }
     }
 
-    abstract fun saveQuiz(title: String, publishDate: String, expiryDate: String)
+    abstract fun saveQuiz(title: String ,description:String, publishDate: String, expiryDate: String)
 }

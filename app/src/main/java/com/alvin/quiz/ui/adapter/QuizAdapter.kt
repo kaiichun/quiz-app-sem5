@@ -3,10 +3,12 @@ package com.alvin.quiz.ui.adapter
 import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.alvin.quiz.R
 import com.alvin.quiz.data.model.Quiz
 import com.alvin.quiz.databinding.LayoutQuizCardViewBinding
+import com.google.android.material.snackbar.Snackbar
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -24,7 +26,6 @@ class QuizAdapter : RecyclerView.Adapter<QuizAdapter.QuizViewHolder>() {
         )
         return QuizViewHolder(binding)
     }
-
 
     override fun getItemCount(): Int {
         return quizzes.size
@@ -57,7 +58,7 @@ class QuizAdapter : RecyclerView.Adapter<QuizAdapter.QuizViewHolder>() {
             val currentDate = Date()
             if ((quiz.publishDate != null && quiz.publishDate.after(currentDate)) ||
                 (quiz.expiryDate != null && quiz.expiryDate.before(currentDate))) {
-                binding.root.setBackgroundColor(R.color.red.toInt())
+                binding.root.setBackgroundColor(Color.RED)
             } else {
                 binding.root.setBackgroundColor(Color.TRANSPARENT)
             }
@@ -72,6 +73,17 @@ class QuizAdapter : RecyclerView.Adapter<QuizAdapter.QuizViewHolder>() {
 
             binding.ivDelete.setOnClickListener {
                 listener?.onClickDelete(quiz)
+            }
+
+            binding.tvAccessId.text = quiz.accessId
+            binding.btnCopyAccessId.setOnClickListener {
+                val clipboard = ContextCompat.getSystemService(
+                    binding.root.context,
+                    android.content.ClipboardManager::class.java
+                )
+                val clip = android.content.ClipData.newPlainText("Access ID", quiz.accessId)
+                clipboard?.setPrimaryClip(clip)
+                Snackbar.make(binding.root, "Access ID copied to clipboard", Snackbar.LENGTH_SHORT).show()
             }
 
         }

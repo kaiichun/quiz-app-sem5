@@ -23,16 +23,21 @@ class TeacherDashboardViewModel @Inject constructor(
     }
 
     private fun fetchQuizzes() {
-        viewModelScope.launch {
+            viewModelScope.launch {
+                _isLoading.value = true
             quizRepository.getAllQuizzes().collect { quizList ->
                 _quiz.postValue(quizList)
+                _isLoading.value = false
             }
         }
     }
 
     fun deleteQuiz(quizId: String) {
         viewModelScope.launch{
-            errorHandler { quizRepository.deleteQuiz(quizId) }
+            errorHandler {
+                quizRepository.deleteQuiz(quizId)
+                finish.emit(Unit)}
         }
     }
+
 }

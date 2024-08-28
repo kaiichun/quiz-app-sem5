@@ -15,15 +15,15 @@ object CSVUtils {
                 BufferedReader(InputStreamReader(inputStream, StandardCharsets.UTF_8)).use { reader ->
                     reader.readLine()
                     reader.forEachLine { line ->
-                        val content = line.split(",")
-                        if (content.size >= 9) {
+                        val csvContent = line.split(",").map { it.replace("\"", "").trim() }
+                        if (csvContent.size >= 9) {
                             val question = Question(
-                                questionId = content[0],
-                                questionText = content[1],
-                                options = content.subList(2, 6),
-                                correctAnswer = content[6],
-                                timeLimit = content[7].toIntOrNull() ?: 0,
-                                mark = content[8].toIntOrNull() ?: 1
+                                questionId = csvContent[0],
+                                questionText = csvContent[1],
+                                options = csvContent.subList(2, 6),
+                                correctAnswer = csvContent[6],
+                                timeLimit = csvContent[7].toIntOrNull() ?: 15,
+                                mark = csvContent[8].toIntOrNull() ?: 1
                             )
                             questions.add(question)
                         }

@@ -1,17 +1,19 @@
 package com.alvin.quiz.data.model
 data class StudentQuizCompletion(
-    val studentId: String,
-    val quizId: String,
-    val hasAttempted: Boolean = false,
+    var studentId: String,
+    val firstName: String,
+    val lastName: String,
+    val profilePicture: String? = null,
     val totalScore: Int = 0,
-    val completionId: String? = null
+    val completionId: String? = null,
 ) {
     fun toMap(): Map<String, Any?> {
         return hashMapOf(
             "studentId" to studentId,
-            "quizId" to quizId,
-            "hasAttempted" to hasAttempted,
-            "totalScore" to totalScore
+            "totalScore" to totalScore,
+            "firstName" to firstName,
+            "lastName" to lastName,
+            "profilePicture" to profilePicture
         )
     }
 
@@ -19,10 +21,11 @@ data class StudentQuizCompletion(
         fun fromMap(map: Map<String, Any?>, id: String? = null): StudentQuizCompletion {
             return StudentQuizCompletion(
                 studentId = map["studentId"] as? String ?: "",
-                quizId = map["quizId"] as? String ?: "",
-                hasAttempted = map["hasAttempted"] as? Boolean ?: false,
+                firstName = map["firstName"] as? String ?: "",
+                lastName = map["lastName"] as? String ?: "",
+                profilePicture = map["profilePicture"] as? String,
                 totalScore = map["totalScore"] as? Int ?: 0,
-                completionId = id
+                completionId = id,
             )
         }
     }

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:title="@string/home"
+        android:icon="@drawable/ic_home"
+        android:id="@+id/studentHomeFragment"
+        android:visible="true"
+        android:actionLayout="@layout/layout_menu" />
+    <item android:title="@string/home"
+        android:id="@+id/teacherHomeFragment"
+        android:icon="@drawable/ic_home"
+        android:visible="true"
+        android:actionLayout="@layout/layout_menu" />
+    <item android:title="@string/dashboard"
+        android:id="@+id/teacherDashboardFragment"
+        android:visible="true"
+        android:icon="@drawable/ic_history"
+        android:actionLayout="@layout/layout_menu" />
+    <item android:title="@string/result"
+        android:id="@+id/resultFragment"
+        android:visible="true"
+        android:icon="@drawable/ic_history"
+        android:actionLayout="@layout/layout_menu" />
+    <item android:title="@string/profile"
+        android:id="@+id/profileFragment"
+        android:icon="@drawable/ic_person"
+        android:actionLayout="@layout/layout_menu" />
+    <item android:title="@string/logout"
+        android:id="@+id/logout"
+        android:icon="@drawable/ic_logout"
+        android:actionLayout="@layout/layout_menu" />
+</menu>

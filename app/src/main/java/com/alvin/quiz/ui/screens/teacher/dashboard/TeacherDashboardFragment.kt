@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import androidx.core.view.isInvisible
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -43,7 +44,7 @@ class TeacherDashboardFragment : BaseFragment<FragmentTeacherDashboardBinding>()
         lifecycleScope.launch {
             viewModel.quizzes.collect { quiz ->
                 quizAdapter.setQuizzes(quiz)
-                binding?.tvNoContent?.isInvisible = quizAdapter.itemCount != 0
+                binding?.tvNoContent?.isVisible = quizAdapter.itemCount != 0
             }
         }
     }
@@ -64,9 +65,9 @@ class TeacherDashboardFragment : BaseFragment<FragmentTeacherDashboardBinding>()
         binding?.rvQuiz?.adapter = quizAdapter
         binding?.rvQuiz?.layoutManager = layoutManager
 
-        quizAdapter.listener = object: QuizAdapter.Listener {
+        quizAdapter.listener = object : QuizAdapter.Listener {
             override fun onClick(quiz: Quiz) {
-                    TODO()
+                TODO()
             }
 
             override fun onClickEdit(quiz: Quiz) {
@@ -92,7 +93,6 @@ class TeacherDashboardFragment : BaseFragment<FragmentTeacherDashboardBinding>()
                 }
                 temporaryDeleteDialog.show()
             }
-            }
         }
     }
-
+}

@@ -14,7 +14,7 @@ import kotlinx.coroutines.tasks.await
 class StudentResultRepository(private val authService: AuthService) {
     private fun getCollection(quizId: String, studentId: String): CollectionReference {
         val uid = authService.getUid() ?: throw Exception("User ID doesn't exist")
-        return Firebase.firestore.collection("root_db/$uid/quizzes/$quizId/students/$studentId/results")
+        return Firebase.firestore.collection("quizzes/$quizId/students/$studentId/results")
     }
 
     fun getAllResults(quizId: String, studentId: String) = callbackFlow<List<StudentResult>> {
@@ -26,7 +26,7 @@ class StudentResultRepository(private val authService: AuthService) {
             value?.documents?.map { item ->
                 item.data?.let { resultMap ->
                     val result = StudentResult.fromMap(resultMap)
-                    results.add(result)  // No longer copying with attemptNumber
+                    results.add(result)
                 }
             }
             trySend(results)
@@ -34,6 +34,14 @@ class StudentResultRepository(private val authService: AuthService) {
         awaitClose {
             listener.remove()
         }
+    }
+
+    suspend fun hasResult(quizId: String, studentId: String): Boolean {
+        val query = Firebase.firestore.collection("quizzes/$quizId/students/$studentId/results")
+            .get()
+            .await()
+
+        return !query.isEmpty
     }
 
     suspend fun addResult(quizId: String, studentId: String, result: StudentResult): String? {
