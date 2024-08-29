@@ -19,8 +19,24 @@ class AddQuizViewModel @Inject constructor(
     private val quizRepository: QuizRepository
 ) : BaseAddEditQuizViewModel() {
 
-    override fun saveQuiz(title: String,description: String, publishDate: String, expiryDate: String) {
+    override fun saveQuiz(title: String, description: String, publishDate: String, expiryDate: String) {
         viewModelScope.launch {
+            if (title.isEmpty()) {
+                _error.emit("Title cannot be empty")
+                return@launch
+            }
+            if (_questions.value.isEmpty()) {
+                _error.emit("Questions cannot be empty")
+                return@launch
+            }
+            if (publishDate.isEmpty()) {
+                _error.emit("Publish Date cannot be empty")
+                return@launch
+            }
+            if (expiryDate.isEmpty()) {
+                _error.emit("Expiry Date cannot be empty")
+                return@launch
+            }
             loading.value = true
             try {
                 val quiz = Quiz(
@@ -35,7 +51,7 @@ class AddQuizViewModel @Inject constructor(
                 quizRepository.addQuiz(quiz)
                 finish.emit(Unit)
             } catch (e: Exception) {
-                _error.emit(e.message ?: "No match CSV Format")
+                _error.emit(e.message ?: "Error saving the quiz")
             } finally {
                 loading.value = false
             }

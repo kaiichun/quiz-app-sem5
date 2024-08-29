@@ -1,28 +1,266 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
-    <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
         android:orientation="vertical"
+        android:layout_marginTop="65sp"
         tools:context=".ui.screens.teacher.home.TeacherHomeFragment">
 
-        <TextView
-            android:layout_width="wrap_content"
+        <ScrollView
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Hello This Is TEACHER Home"
-            android:layout_marginBottom="@dimen/s"/>
+            android:scrollbars="none"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnDashboard"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:minHeight="0dp"
-            android:minWidth="0dp"
-            android:text="@string/dashboard"
-            android:backgroundTint="@color/red"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/xxxs"
+                android:orientation="vertical">
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center">
 
-    </LinearLayout>
+                    <TextView
+                        android:id="@+id/tvRanking"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="@string/top_ranking"
+                        android:textSize="26sp"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                <View
+                    android:id="@+id/topRankingView"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginHorizontal="@dimen/m"
+                    android:layout_marginVertical="16dp"
+                    android:background="@color/black"
+                    app:layout_constraintTop_toBottomOf="@+id/tvRanking" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/top3Container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:layout_marginBottom="@dimen/s"
+                    android:layout_marginTop="@dimen/xl"
+                    app:layout_constraintTop_toBottomOf="@+id/tvRanking">
+
+                    <LinearLayout
+                        android:id="@+id/firstPlaceLayout"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:id="@+id/ivFirstPlace"
+                            android:layout_width="100dp"
+                            android:layout_height="100dp"
+                            android:layout_gravity="center|end"
+                            android:layout_marginHorizontal="@dimen/xs"
+                            android:src="@drawable/ic_person"
+                            app:civ_border_color="@color/black"
+                            app:civ_border_width="1dp" />
+
+                        <TextView
+                            android:id="@+id/tvFirstPlaceName"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:textStyle="bold"
+                            android:layout_marginTop="@dimen/xxxxs"
+                            android:text="First Place"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:id="@+id/tvFirstPlaceScore"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="1000"
+                            android:textSize="14sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/secondPlaceLayout"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/xl"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        app:layout_constraintEnd_toStartOf="@+id/firstPlaceLayout"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:id="@+id/ivSecondPlace"
+                            android:layout_width="80dp"
+                            android:layout_height="80dp"
+                            android:layout_gravity="center|end"
+                            android:layout_marginHorizontal="@dimen/xs"
+                            android:src="@drawable/ic_person"
+                            app:civ_border_color="@color/black"
+                            app:civ_border_width="1dp" />
+
+                        <TextView
+                            android:id="@+id/tvSecondPlaceName"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:textStyle="bold"
+                            android:layout_marginTop="@dimen/xxxxs"
+                            android:text="Second Place"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:id="@+id/tvSecondPlaceScore"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="600"
+                            android:textSize="14sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/thirdPlaceLayout"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/xxxxxl"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/firstPlaceLayout"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:id="@+id/ivThirdPlace"
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
+                            android:layout_gravity="center|end"
+                            android:layout_marginHorizontal="@dimen/xs"
+                            android:src="@drawable/ic_person"
+                            app:civ_border_color="@color/black"
+                            app:civ_border_width="1dp" />
+
+
+                        <TextView
+                            android:id="@+id/tvThirdPlaceName"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:textStyle="bold"
+                            android:layout_marginTop="@dimen/xxxxs"
+                            android:text="Third Place"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:id="@+id/tvThirdPlaceScore"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="800"
+                            android:textSize="14sp" />
+                    </LinearLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <TextView
+                    android:id="@+id/tvNoRanking"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="64dp"
+                    android:gravity="center"
+                    android:visibility="visible"
+                    android:text="no have any ranking"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="@+id/rvRankings"
+                    app:layout_constraintHorizontal_bias="0.497"
+                    app:layout_constraintStart_toStartOf="@+id/rvRankings"
+                    app:layout_constraintTop_toBottomOf="@+id/topRankingView" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvRankings"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/s"
+                    android:layout_marginHorizontal="@dimen/l"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/top3Container" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <TextView
+                    android:id="@+id/tvStudentAttend"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/m"
+                    android:layout_marginTop="@dimen/m"
+                    android:text="Student Has Attend"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvQuizNoAttend"
+                    android:layout_width="match_parent"
+                    android:layout_height="240sp"
+                    tools:listitem="@layout/layout_quiz_card_view" />
+
+                <View
+                    android:id="@+id/view"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginHorizontal="@dimen/m"
+                    android:layout_marginVertical="16dp"
+                    android:background="@color/black" />
+
+                <TextView
+                    android:id="@+id/tvStudentNoAttend"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/m"
+                    android:text="Student Has Not Attend"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvQuizHasAttend"
+                    android:layout_width="match_parent"
+                    android:layout_height="240sp"
+                    tools:listitem="@layout/layout_quiz_card_view" />
+
+                <TextView
+                    android:id="@+id/tvNoRanking"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="64dp"
+                    android:gravity="center"
+                    android:visibility="visible"
+                    android:text="no have any ranking"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="@+id/rvRankings"
+                    app:layout_constraintHorizontal_bias="0.497"
+                    app:layout_constraintStart_toStartOf="@+id/rvRankings"
+                    app:layout_constraintTop_toBottomOf="@+id/topRankingView" />
+
+            </LinearLayout>
+        </ScrollView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -23,18 +23,11 @@ class EditQuizViewModel @Inject constructor(
     private val quizRepository: QuizRepository
 ) : BaseAddEditQuizViewModel()  {
 
-//    private val _questions = MutableStateFlow<List<Question>>(emptyList())
-//    val questions: StateFlow<List<Question>> = _questions
-
     fun getQuizById(quizId: String) {
         viewModelScope.launch {
             quiz.value = quizRepository.getQuizById(quizId)
         }
     }
-
-//    fun setQuestions(questions: List<Question>) {
-//        _questions.value = questions
-//    }
 
     override fun saveQuiz(
         title: String,
@@ -48,6 +41,7 @@ class EditQuizViewModel @Inject constructor(
                 description = description,
                 publishDate = parsingDate(publishDate),
                 expiryDate = parsingDate(expiryDate),
+                questions = _questions.value,
             )
             viewModelScope.launch {
                 loading.value = true

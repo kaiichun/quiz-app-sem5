@@ -73,7 +73,9 @@ class EditQuizFragment : BaseAddEditQuizFragment() {
                 Snackbar.make(view, "Quiz saved successfully", Snackbar.LENGTH_SHORT).setBackgroundTint(
                     ContextCompat.getColor(requireContext(), R.color.darkGreen)
                 ).show()
-                findNavController().popBackStack()
+                findNavController().navigate(
+                    EditQuizFragmentDirections.actionEditQuizToTeacherDashboard()
+                )
             }
         }
 

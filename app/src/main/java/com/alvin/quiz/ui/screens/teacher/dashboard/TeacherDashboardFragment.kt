@@ -67,7 +67,11 @@ class TeacherDashboardFragment : BaseFragment<FragmentTeacherDashboardBinding>()
 
         quizAdapter.listener = object : QuizAdapter.Listener {
             override fun onClick(quiz: Quiz) {
-                TODO()
+                quiz.quizId.let {
+                    findNavController().navigate(
+                        TeacherDashboardFragmentDirections.actionTeacherDashboardToCheckQuizView(it)
+                    )
+                }
             }
 
             override fun onClickEdit(quiz: Quiz) {

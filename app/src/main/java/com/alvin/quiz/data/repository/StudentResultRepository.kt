@@ -44,6 +44,15 @@ class StudentResultRepository(private val authService: AuthService) {
         return !query.isEmpty
     }
 
+
+    suspend fun hasAttend(quizId: String): Boolean {
+        val query = Firebase.firestore.collection("quizzes/$quizId/students")
+            .get()
+            .await()
+
+        return !query.isEmpty
+    }
+
     suspend fun addResult(quizId: String, studentId: String, result: StudentResult): String? {
         val response = getCollection(quizId, studentId).add(result.toMap()).await()
         return response?.id

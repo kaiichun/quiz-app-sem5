@@ -11,6 +11,7 @@
     <string name="update_note">Update Note</string>
     <string name="title">Title</string>
     <string name="description">Description</string>
+    <string name="description1">Description: </string>
     <string name="button_add">ADD</string>
     <string name="creating_account">"Creating… "</string>
     <string name="email">Email</string>
@@ -45,8 +46,8 @@
     <string name="dashboard">Dashboard</string>
     <string name="quiz">Quiz</string>
     <string name="question">Question</string>
-    <string name="publish_date">Publish Date: </string>
-    <string name="expiry_date">Expiry Date: </string>
+    <string name="publish_date">Publish Date:  </string>
+    <string name="expiry_date">Expiry Date:  </string>
     <string name="date">YYYY-MM-DD</string>
     <string name="access_quiz">Access Quiz</string>
     <string name="welcome">Welcome</string>
@@ -59,4 +60,7 @@
     <string name="upload">Upload</string>
     <string name="submit">Submitting %d %%</string>
     <string name="completed_quiz">You have already completed this quiz</string>
+    <string name="state">"State: "</string>
+    <string name="access_id">"AccessID: "</string>
+    <string name="todo">TODO</string>
 </resources>

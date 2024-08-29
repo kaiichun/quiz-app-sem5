@@ -138,7 +138,7 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvQuestion"
                 android:layout_width="match_parent"
-                android:layout_height="240dp"
+                android:layout_height="260dp"
                 android:layout_marginTop="16dp" />
 
             <!-- Save Quiz Button -->

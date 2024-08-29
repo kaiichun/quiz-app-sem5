@@ -62,6 +62,13 @@ class QuizViewModel @Inject constructor(
                     totalScore = score
                 )
                 completionRepository.addCompletion(completion)
+
+                val quiz = quizRepository.getQuizById(quizId)
+                if (quiz != null) {
+                    val updatedQuiz = quiz.copy(status = true)
+                    quizRepository.updateQuiz(updatedQuiz)
+                }
+
                 finish.emit(Unit)
             }
         } catch (e: Exception) {

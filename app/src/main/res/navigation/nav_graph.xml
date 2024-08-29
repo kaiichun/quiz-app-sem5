@@ -55,6 +55,9 @@
         <action
             android:id="@+id/actionTeacherHomeToTeacherDashboard"
             app:destination="@id/teacherDashboardFragment" />
+        <action
+            android:id="@+id/actionTeacherHomeToCheckQuizView"
+            app:destination="@id/checkQuizViewFragment" />
     </fragment>
     <fragment
         android:id="@+id/teacherDashboardFragment"
@@ -67,6 +70,9 @@
         <action
             android:id="@+id/actionTeacherDashboardToEditQuiz"
             app:destination="@id/editQuizFragment" />
+        <action
+            android:id="@+id/actionTeacherDashboardToCheckQuizView"
+            app:destination="@id/checkQuizViewFragment" />
     </fragment>
 
     <fragment
@@ -103,4 +109,19 @@
         android:name="com.alvin.quiz.ui.screens.profile.ProfileFragment"
         android:label="Profile"
         tools:layout="@layout/fragment_profile"/>
+    <fragment
+        android:id="@+id/checkQuizViewFragment"
+        android:name="com.alvin.quiz.ui.screens.teacher.addEditView.view.CheckQuizViewFragment"
+        android:label="Quiz"
+        tools:layout="@layout/fragment_check_quiz_view" >
+        <argument
+            android:name="quizId"
+            app:argType="string" />
+        <action
+            android:id="@+id/actionCheckQuizVieToTeacherDashboard"
+            app:destination="@id/teacherDashboardFragment" />
+        <action
+            android:id="@+id/actionCheckQuizViewToEditQuiz"
+            app:destination="@id/editQuizFragment" />
+    </fragment>
 </navigation>

@@ -71,14 +71,18 @@ class AddQuizFragment : BaseAddEditQuizFragment() {
 
     private val csvFilePickerLauncher = registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
         uri?.let {
-            val questions = CSVUtils.readCSVFile(requireContext(), it)
-            if (questions.isNotEmpty()) {
-                viewModel.setQuestions(questions)
-                adapter.setQuestions(questions)
-                adapter.notifyDataSetChanged()
-                Snackbar.make(requireView(), "CSV uploaded successfully!", Snackbar.LENGTH_LONG).show()
-            } else {
-                Snackbar.make(requireView(), "No questions found in the CSV.", Snackbar.LENGTH_LONG).show()
+            try {
+                val questions = CSVUtils.readCSVFile(requireContext(), it)
+                if (questions.isNotEmpty()) {
+                    viewModel.setQuestions(questions)
+                    adapter.setQuestions(questions)
+                    adapter.notifyDataSetChanged()
+                    Snackbar.make(requireView(), "CSV uploaded successfully!", Snackbar.LENGTH_LONG).show()
+                } else {
+                    Snackbar.make(requireView(), "CSV Format no match", Snackbar.LENGTH_LONG).show()
+                }
+            } catch (e: IllegalArgumentException) {
+                Snackbar.make(requireView(), e.message ?: "Format no match", Snackbar.LENGTH_LONG).show()
             }
         }
     }

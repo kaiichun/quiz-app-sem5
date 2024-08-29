@@ -109,10 +109,10 @@ class QuizViewFragment : BaseFragment<FragmentQuizViewBinding>() {
             val selectedAnswers = adapter.getSelectedAnswers()
             val quiz = viewModel.getQuizById(quizId)
             if (quiz != null) {
-                val totalScore = viewModel.calculateScore(quiz, selectedAnswers)
+                val score = viewModel.calculateScore(quiz, selectedAnswers)
                 val studentId = viewModel.getCurrentUserId()
-                viewModel.saveResult(quizId, studentId, totalScore)
-                showScoreDialog(totalScore)
+                viewModel.saveResult(quizId, studentId, score)
+                showScoreDialog(score)
             }
         }
     }

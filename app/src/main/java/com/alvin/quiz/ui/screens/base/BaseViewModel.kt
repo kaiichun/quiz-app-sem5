@@ -14,8 +14,11 @@ abstract class BaseViewModel : ViewModel() {
     protected val _error = MutableSharedFlow<String>()
     val error: SharedFlow<String> = _error
 
-    private val _quizzes = MutableStateFlow<List<Quiz>>(emptyList())
+    protected val _quizzes = MutableStateFlow<List<Quiz>>(emptyList())
     open val quizzes: StateFlow<List<Quiz>> = _quizzes
+
+    protected val _noAttendQuizzes = MutableStateFlow<List<Quiz>>(emptyList())
+    val noAttendQuizzes: StateFlow<List<Quiz>> = _noAttendQuizzes
 
     open val finish: MutableSharedFlow<Unit> = MutableSharedFlow()
 
@@ -34,5 +37,4 @@ abstract class BaseViewModel : ViewModel() {
             null
         }
     }
-
 }

@@ -29,7 +29,7 @@ class AnswerQuestionAdapter(
 
     fun setQuestions(questions: List<Question>) {
         this.questions = questions
-        clearSelectedAnswer()
+        // clearSelectedAnswer()
         notifyDataSetChanged()
     }
 
