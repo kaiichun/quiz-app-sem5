@@ -194,15 +194,15 @@
                     app:layout_constraintStart_toStartOf="@+id/rvRankings"
                     app:layout_constraintTop_toBottomOf="@+id/topRankingView" />
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rvRankings"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/s"
-                    android:layout_marginHorizontal="@dimen/l"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/top3Container" />
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rvRankings"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/l"
+                        android:layout_marginTop="16dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/top3Container" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -244,21 +244,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="240sp"
                     tools:listitem="@layout/layout_quiz_card_view" />
-
-                <TextView
-                    android:id="@+id/tvNoRanking"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="64dp"
-                    android:gravity="center"
-                    android:visibility="visible"
-                    android:text="no have any ranking"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    app:layout_constraintEnd_toEndOf="@+id/rvRankings"
-                    app:layout_constraintHorizontal_bias="0.497"
-                    app:layout_constraintStart_toStartOf="@+id/rvRankings"
-                    app:layout_constraintTop_toBottomOf="@+id/topRankingView" />
 
             </LinearLayout>
         </ScrollView>
