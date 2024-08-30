@@ -51,7 +51,6 @@
                 android:text="D. Option D"
                 android:textSize="16sp" />
 
-
         </LinearLayout>
 
     </com.google.android.material.card.MaterialCardView>

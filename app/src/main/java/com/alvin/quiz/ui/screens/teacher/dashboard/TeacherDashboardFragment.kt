@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SearchView
 import androidx.appcompat.app.AlertDialog
 import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
@@ -27,9 +28,8 @@ import kotlinx.coroutines.launch
 @AndroidEntryPoint
 class TeacherDashboardFragment : BaseFragment<FragmentTeacherDashboardBinding>() {
     override val viewModel: TeacherDashboardViewModel by viewModels()
-
     private lateinit var quizAdapter: QuizAdapter
-
+    private lateinit var noFilterQuiz: List<Quiz>
     override fun getLayoutResource() = R.layout.fragment_teacher_dashboard
 
 
@@ -39,19 +39,36 @@ class TeacherDashboardFragment : BaseFragment<FragmentTeacherDashboardBinding>()
 
         viewModel.quiz.observe(viewLifecycleOwner) { quizzes ->
             quizAdapter.setQuizzes(quizzes)
+            noFilterQuiz = quizzes
+            updateNoContentVisibility()
         }
 
-        lifecycleScope.launch {
-            viewModel.quizzes.collect { quiz ->
-                quizAdapter.setQuizzes(quiz)
-                binding?.tvNoContent?.isVisible = quizAdapter.itemCount != 0
+        binding?.btnSearch?.setOnClickListener {
+            binding?.searchBarLayout?.visibility = if (binding?.searchBarLayout?.visibility == View.VISIBLE) {
+                View.GONE
+            } else {
+                View.VISIBLE
             }
         }
+
+        binding?.svSearchView?.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return false
+            }
+            override fun onQueryTextChange(newText: String?): Boolean {
+                filterQuiz(newText)
+                return true
+            }
+        }
+        )
+    }
+
+    private fun updateNoContentVisibility() {
+        binding?.tvNoContent?.isVisible = quizAdapter.itemCount == 0
     }
 
     override fun onBindView(view: View) {
         super.onBindView(view)
-
         binding?.btnAddQuiz?.setOnClickListener {
             findNavController().navigate(
                 TeacherDashboardFragmentDirections.actionTeacherDashboardToAddQuiz()
@@ -96,6 +113,19 @@ class TeacherDashboardFragment : BaseFragment<FragmentTeacherDashboardBinding>()
                     temporaryDeleteDialog.dismiss()
                 }
                 temporaryDeleteDialog.show()
+            }
+        }
+    }
+
+    private fun filterQuiz(query: String?) {
+        if (::noFilterQuiz.isInitialized) {
+            if (query.isNullOrBlank()) {
+                quizAdapter.setQuizzes(noFilterQuiz)
+            } else {
+                val filteredQuiz = noFilterQuiz.filter { quiz ->
+                    quiz.title.contains(query, ignoreCase = true) || quiz.accessId.contains(query, ignoreCase = true)
+                }
+                quizAdapter.setQuizzes(filteredQuiz)
             }
         }
     }

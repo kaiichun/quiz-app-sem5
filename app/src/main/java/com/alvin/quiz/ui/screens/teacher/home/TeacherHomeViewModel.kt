@@ -24,14 +24,11 @@ class TeacherHomeViewModel@Inject constructor(
     private val quizRepository: QuizRepository
 ) : BaseViewModel() {
 
-    private val _completions = MutableLiveData<List<StudentQuizCompletion>>()
-    val completions: LiveData<List<StudentQuizCompletion>> get() = _completions
-
     fun loadCompletions() {
         viewModelScope.launch {
-            studentQuizCompletionRepository.getAllCompletions().collect {
-                if (it.isNotEmpty()) {
-                    _completions.postValue(it.sortedByDescending { completion -> completion.totalScore })
+            studentQuizCompletionRepository.getAllCompletions().collect { completions ->
+                if (completions.isNotEmpty()) {
+                    _completions.postValue(completions.sortedByDescending { it.totalScore })
                 }
             }
         }

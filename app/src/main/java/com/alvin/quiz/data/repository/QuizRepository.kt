@@ -65,7 +65,6 @@ class QuizRepository(private val authService: AuthService) {
 
     suspend fun getQuizIdByAccessId(accessId: String): String? {
         return try {
-            Log.d("debugging", "WORKs")
             val snapshot = getCollection()
                 .whereEqualTo("accessId", accessId)
                 .get()

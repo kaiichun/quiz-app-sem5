@@ -46,6 +46,9 @@
                 android:name="quizId"
                 app:argType="string"/>
         </action>
+        <action
+            android:id="@+id/actionStudentHomeToLogin"
+            app:destination="@id/loginFragment" />
     </fragment>
     <fragment
         android:id="@+id/teacherHomeFragment"
@@ -58,6 +61,9 @@
         <action
             android:id="@+id/actionTeacherHomeToCheckQuizView"
             app:destination="@id/checkQuizViewFragment" />
+        <action
+            android:id="@+id/actionTeacherHomeToLogin"
+            app:destination="@id/loginFragment" />
     </fragment>
     <fragment
         android:id="@+id/teacherDashboardFragment"

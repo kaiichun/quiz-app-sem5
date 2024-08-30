@@ -89,19 +89,56 @@ class MainActivity : AppCompatActivity() {
         }
 
         btnLogout.setOnClickListener {
-            authService.logout()
-            navController.navigate(
-                R.id.loginFragment,
-                null,
-                NavOptions.Builder()
-                    .setPopUpTo(R.id.studentHomeFragment, true)
-                    .build()
-            )
-            alertDialog.dismiss()
+            lifecycleScope.launch {
+                val uid = authService.getUid()
+                if (uid != null) {
+                    val userRole = authService.getUserRole(uid)
+                    authService.logout()
+                    when (userRole) {
+                        UserRole.STUDENT -> {
+                            navController.navigate(
+                                R.id.loginFragment,
+                                null,
+                                NavOptions.Builder()
+                                    .setPopUpTo(R.id.studentHomeFragment, true)
+                                    .build()
+                            )
+                        }
+                        UserRole.TEACHER -> {
+                            navController.navigate(
+                                R.id.loginFragment,
+                                null,
+                                NavOptions.Builder()
+                                    .setPopUpTo(R.id.teacherHomeFragment, true)
+                                    .build()
+                            )
+                        }
+                        else -> {
+                            navController.navigate(
+                                R.id.loginFragment,
+                                null,
+                                NavOptions.Builder()
+                                    .setPopUpTo(R.id.studentHomeFragment, true)
+                                    .build()
+                            )
+                        }
+                    }
+                } else {
+                    // If UID is null, navigate to login
+                    navController.navigate(
+                        R.id.loginFragment,
+                        null,
+                        NavOptions.Builder()
+                            .setPopUpTo(R.id.loginFragment, true)
+                            .build()
+                    )
+                }
+                alertDialog.dismiss()
+            }
         }
+
         alertDialog.show()
     }
-
     private fun navigateBasedOnUserRole() {
         val uid = authService.getUid()
 

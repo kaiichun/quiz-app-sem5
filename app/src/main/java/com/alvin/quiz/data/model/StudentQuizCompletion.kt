@@ -24,7 +24,7 @@ data class StudentQuizCompletion(
                 firstName = map["firstName"] as? String ?: "",
                 lastName = map["lastName"] as? String ?: "",
                 profilePicture = map["profilePicture"] as? String,
-                totalScore = map["totalScore"] as? Int ?: 0,
+                totalScore = (map["totalScore"] as? Long)?.toInt() ?: map["totalScore"] as Int,
                 completionId = id,
             )
         }

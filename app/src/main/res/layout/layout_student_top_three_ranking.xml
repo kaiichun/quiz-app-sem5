@@ -81,7 +81,6 @@
             android:textSize="14sp" />
     </LinearLayout>
 
-    <!-- 3rd Place (right of 1st and slightly lower than 2nd) -->
     <LinearLayout
         android:id="@+id/thirdPlaceLayout"
         android:layout_width="wrap_content"

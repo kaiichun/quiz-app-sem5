@@ -7,7 +7,7 @@
     </data>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="horizontal"
@@ -15,10 +15,21 @@
     android:gravity="center_horizontal"
     android:background="?android:attr/selectableItemBackground">
 
+    <TextView
+        android:id="@+id/tvRanking"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:gravity="center"
+        android:textStyle="italic"
+        android:layout_marginEnd="@dimen/xxxxs"
+        android:text="4-10"
+        android:textSize="16sp"/>
+
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/ivStudentImage"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_width="38dp"
+        android:layout_height="38dp"
         android:layout_gravity="center|end"
         android:layout_marginHorizontal="@dimen/xs"
         android:src="@drawable/ic_person"
@@ -33,7 +44,7 @@
         android:layout_gravity="center_vertical"
         android:layout_marginHorizontal="@dimen/l"
         android:text="@string/name"
-        android:textSize="20sp"
+        android:textSize="16sp"
         android:textStyle="bold"/>
 
     <TextView
@@ -43,7 +54,7 @@
         android:layout_gravity="center_vertical"
         android:gravity="center"
         android:text="@string/score"
-        android:textSize="20sp"/>
+        android:textSize="16sp"/>
 
 </LinearLayout>
 </layout>

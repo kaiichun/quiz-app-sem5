@@ -54,17 +54,19 @@ class QuizViewModel @Inject constructor(
                 )
                 resultRepository.addResult(quizId, studentId, result)
 
+                val existingCompletion = completionRepository.getCompletionByStudentId(studentId)
+                val newTotalScore = (existingCompletion?.totalScore ?: 0) + score
                 val completion = StudentQuizCompletion(
                     studentId = studentId,
                     firstName = firstName,
                     lastName = lastName,
                     profilePicture = profilePicture,
-                    totalScore = score
+                    totalScore = newTotalScore
                 )
                 completionRepository.addCompletion(completion)
 
                 val quiz = quizRepository.getQuizById(quizId)
-                if (quiz != null) {
+                if (quiz != null && !quiz.status) {
                     val updatedQuiz = quiz.copy(status = true)
                     quizRepository.updateQuiz(updatedQuiz)
                 }

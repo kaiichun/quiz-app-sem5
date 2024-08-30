@@ -1,16 +1,13 @@
 package com.alvin.quiz.ui.adapter
 
-import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.alvin.quiz.R
 import com.alvin.quiz.data.model.Quiz
 import com.alvin.quiz.databinding.LayoutQuizCardViewBinding
 import com.google.android.material.snackbar.Snackbar
 import java.text.SimpleDateFormat
-import java.util.Date
 import java.util.Locale
 
 class QuizAdapter : RecyclerView.Adapter<QuizAdapter.QuizViewHolder>() {
@@ -41,6 +38,7 @@ class QuizAdapter : RecyclerView.Adapter<QuizAdapter.QuizViewHolder>() {
         notifyDataSetChanged()
     }
 
+
     inner class QuizViewHolder(
         private val binding: LayoutQuizCardViewBinding
     ) : RecyclerView.ViewHolder(binding.root) {
@@ -48,33 +46,19 @@ class QuizAdapter : RecyclerView.Adapter<QuizAdapter.QuizViewHolder>() {
 
         fun bind(quiz: Quiz) {
             binding.tvQuizTitle.text = quiz.title
-
             val publishDate = quiz.publishDate?.let { dateFormatter.format(it) } ?: ""
             val expiryDate = quiz.expiryDate?.let { dateFormatter.format(it) } ?: ""
-
             binding.tvPublishDate.text = publishDate
             binding.tvExpiryDate.text = expiryDate
-
-            val currentDate = Date()
-            if ((quiz.publishDate != null && quiz.publishDate.after(currentDate)) ||
-                (quiz.expiryDate != null && quiz.expiryDate.before(currentDate))) {
-                binding.root.setBackgroundColor(Color.RED)
-            } else {
-                binding.root.setBackgroundColor(Color.TRANSPARENT)
-            }
-
             binding.cvQuiz.setOnClickListener {
                 listener?.onClick(quiz)
             }
-
             binding.ivEdit.setOnClickListener {
                 listener?.onClickEdit(quiz)
             }
-
             binding.ivDelete.setOnClickListener {
                 listener?.onClickDelete(quiz)
             }
-
             binding.tvAccessId.text = quiz.accessId
             binding.btnCopyAccessId.setOnClickListener {
                 val clipboard = ContextCompat.getSystemService(

@@ -40,6 +40,7 @@ class StudentHomeFragment : BaseFragment<FragmentStudentHomeBinding>() {
 
     override fun onBindView(view: View) {
         super.onBindView(view)
+        studentQuizCompletionAdapter = StudentQuizCompletionAdapter()
         viewModel.loadCompletions()
         viewModel.completions.observe(viewLifecycleOwner) { completions ->
             if (completions.isNotEmpty()) {

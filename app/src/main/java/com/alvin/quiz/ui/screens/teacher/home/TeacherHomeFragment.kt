@@ -1,35 +1,31 @@
 package com.alvin.quiz.ui.screens.teacher.home
 
-import android.os.Bundle
-import android.util.Log
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.ImageView
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.alvin.quiz.R
 import com.alvin.quiz.core.service.StorageService
 import com.alvin.quiz.data.model.Quiz
 import com.alvin.quiz.data.model.StudentQuizCompletion
-import com.alvin.quiz.databinding.FragmentRegisterBinding
 import com.alvin.quiz.databinding.FragmentTeacherHomeBinding
-import com.alvin.quiz.ui.adapter.QuizAdapter
 import com.alvin.quiz.ui.adapter.QuizStatusAdapter
 import com.alvin.quiz.ui.adapter.StudentQuizCompletionAdapter
 import com.alvin.quiz.ui.screens.base.BaseFragment
-import com.alvin.quiz.ui.screens.register.RegisterViewModel
-import com.alvin.quiz.ui.screens.student.home.StudentHomeViewModel
-import com.alvin.quiz.ui.screens.teacher.dashboard.TeacherDashboardFragmentDirections
 import com.bumptech.glide.Glide
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class TeacherHomeFragment : BaseFragment<FragmentTeacherHomeBinding>() {
     override val viewModel: TeacherHomeViewModel by viewModels()
+
+    @Inject
     lateinit var storageService: StorageService
+
     private lateinit var studentQuizCompletionAdapter: StudentQuizCompletionAdapter
     override fun getLayoutResource() = R.layout.fragment_teacher_home
     private lateinit var attendQuizAdapter: QuizStatusAdapter
@@ -37,11 +33,23 @@ class TeacherHomeFragment : BaseFragment<FragmentTeacherHomeBinding>() {
 
     override fun onBindView(view: View) {
         super.onBindView(view)
+        studentQuizCompletionAdapter = StudentQuizCompletionAdapter()
+        viewModel.loadCompletions()
+        viewModel.completions.observe(viewLifecycleOwner) { completions ->
+            if (completions.isNotEmpty()) {
+                setupRankingViews(completions)
+            } else {
+                binding?.tvNoRanking?.visibility = View.VISIBLE
+            }
+        }
         setupAttendQuizAdapter()
         setupNoAttendQuizAdapter()
-
     }
 
+    override fun onBindData(view: View) {
+        super.onBindData(view)
+        observeViewModelData()
+    }
 
     private fun setupAttendQuizAdapter() {
         attendQuizAdapter = QuizStatusAdapter()
@@ -58,10 +66,11 @@ class TeacherHomeFragment : BaseFragment<FragmentTeacherHomeBinding>() {
             }
         }
     }
+
     private fun setupNoAttendQuizAdapter() {
         noAttendQuizAdapter = QuizStatusAdapter()
         val layoutManager = LinearLayoutManager(requireContext())
-        binding?.rvQuizNoAttend?.adapter = attendQuizAdapter
+        binding?.rvQuizNoAttend?.adapter = noAttendQuizAdapter
         binding?.rvQuizNoAttend?.layoutManager = layoutManager
         noAttendQuizAdapter.listener = object : QuizStatusAdapter.Listener {
             override fun onClick(quiz: Quiz) {
@@ -74,15 +83,24 @@ class TeacherHomeFragment : BaseFragment<FragmentTeacherHomeBinding>() {
         }
     }
 
-    private fun setupRankingViews(completions: List<StudentQuizCompletion>) {
-        Log.d("StudentHomeFragment", "Completions received: ${completions.size}")
+    private fun observeViewModelData() {
+        lifecycleScope.launch {
+            viewModel.noAttendQuizzes.collect { quizzes ->
+                noAttendQuizAdapter.setQuizzesStatus(quizzes)
+            }
+        }
 
+        lifecycleScope.launch {
+            viewModel.quizzes.collect { quizzes ->
+                attendQuizAdapter.setQuizzesStatus(quizzes)
+            }
+        }
+    }
+
+    private fun setupRankingViews(completions: List<StudentQuizCompletion>) {
         val sortedCompletions = completions.sortedByDescending { it.totalScore }
         val top3 = sortedCompletions.take(3)
         val fourToTen = sortedCompletions.drop(3)
-
-        Log.d("StudentHomeFragment", "Top 3: $top3")
-        Log.d("StudentHomeFragment", "Remaining: $fourToTen")
 
         if (top3.isNotEmpty()) {
             binding?.top3Container?.visibility = View.VISIBLE

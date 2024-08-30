@@ -31,15 +31,15 @@ class QuizViewFragment : BaseFragment<FragmentQuizViewBinding>() {
     private var questions: List<Question> = emptyList()
     override fun getLayoutResource() = R.layout.fragment_quiz_view
     private val args: QuizViewFragmentArgs by navArgs()
-    private val quizId by lazy { args.quizId }
-
+    private var quizId: String? = null
     override fun onBindView(view: View) {
         super.onBindView(view)
 
+        quizId = args.quizId
         setupAdapter()
         setupButton()
         lifecycleScope.launch {
-            val quiz = viewModel.getQuizById(quizId)
+            val quiz = viewModel.getQuizById(quizId!!)
             questions = quiz?.questions ?: emptyList()
             if (questions.isNotEmpty()) {
                 displayQuestion(currentQuestionIndex)
@@ -107,11 +107,11 @@ class QuizViewFragment : BaseFragment<FragmentQuizViewBinding>() {
     private fun submitQuiz() {
         lifecycleScope.launch {
             val selectedAnswers = adapter.getSelectedAnswers()
-            val quiz = viewModel.getQuizById(quizId)
+            val quiz = quizId?.let { viewModel.getQuizById(it) }
             if (quiz != null) {
                 val score = viewModel.calculateScore(quiz, selectedAnswers)
                 val studentId = viewModel.getCurrentUserId()
-                viewModel.saveResult(quizId, studentId, score)
+                quizId?.let { viewModel.saveResult(it, studentId, score) }
                 showScoreDialog(score)
             }
         }

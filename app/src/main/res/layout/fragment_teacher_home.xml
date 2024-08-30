@@ -207,17 +207,17 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <TextView
-                    android:id="@+id/tvStudentAttend"
+                    android:id="@+id/tvStudentNoAttend"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/m"
                     android:layout_marginTop="@dimen/m"
-                    android:text="Student Has Attend"
+                    android:text="Student Has Not Attend"
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rvQuizNoAttend"
+                    android:id="@+id/rvQuizHasAttend"
                     android:layout_width="match_parent"
                     android:layout_height="240sp"
                     tools:listitem="@layout/layout_quiz_card_view" />
@@ -231,16 +231,16 @@
                     android:background="@color/black" />
 
                 <TextView
-                    android:id="@+id/tvStudentNoAttend"
+                    android:id="@+id/tvStudentAttend"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/m"
-                    android:text="Student Has Not Attend"
+                    android:text="Student Has Attend"
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rvQuizHasAttend"
+                    android:id="@+id/rvQuizNoAttend"
                     android:layout_width="match_parent"
                     android:layout_height="240sp"
                     tools:listitem="@layout/layout_quiz_card_view" />

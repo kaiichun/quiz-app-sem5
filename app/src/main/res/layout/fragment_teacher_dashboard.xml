@@ -11,11 +11,12 @@
         tools:context=".ui.screens.teacher.dashboard.TeacherDashboardFragment">
 
         <TextView
+            android:id="@+id/textView8"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/m"
             android:layout_marginTop="@dimen/m"
             android:gravity="center_vertical"
-            android:layout_marginHorizontal="@dimen/m"
             android:text="Manage Quiz"
             android:textSize="18sp"
             android:textStyle="bold"
@@ -34,6 +35,43 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <ImageView
+            android:id="@+id/btnSearch"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_margin="@dimen/xxxs"
+            android:src="@drawable/ic_search"
+            app:layout_constraintEnd_toStartOf="@+id/btnAddQuiz"
+            app:layout_constraintTop_toTopOf="parent"
+            android:contentDescription="@string/todo" />
+
+
+        <LinearLayout
+            android:id="@+id/searchBarLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="10dp"
+            android:layout_marginTop="@dimen/s"
+            android:visibility="gone"
+            app:layout_constraintTop_toBottomOf="@+id/btnSearch"
+            tools:layout_editor_absoluteX="85dp">
+
+            <SearchView
+                android:id="@+id/svSearchView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="6dp"
+                android:iconifiedByDefault="false"
+                android:queryHint="Search here"
+                app:layout_constraintBottom_toTopOf="@+id/rvWords"
+                app:layout_constraintEnd_toStartOf="@+id/ivSort"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </LinearLayout>
+
         <TextView
             android:id="@+id/tvNoContent"
             android:layout_width="wrap_content"
@@ -46,16 +84,17 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/rvQuiz" />
 
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvQuiz"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="50sp"
-            android:layout_marginBottom="10sp"
+            android:layout_height="0dp"
+            android:layout_marginVertical="@dimen/m"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btnAddQuiz"
+            app:layout_constraintTop_toBottomOf="@+id/searchBarLayout"
             tools:listitem="@layout/layout_quiz_card_view" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

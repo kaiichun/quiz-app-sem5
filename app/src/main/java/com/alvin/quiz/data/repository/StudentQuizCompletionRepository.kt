@@ -42,4 +42,20 @@ class StudentQuizCompletionRepository(private val authService: AuthService) {
         val docRef = getCollection().document(completion.studentId)
         docRef.set(completion.toMap()).await()
     }
+
+    suspend fun getCompletionByStudentId(studentId: String): StudentQuizCompletion? {
+        return try {
+            val document = getCollection().document(studentId).get().await()
+            if (document.exists()) {
+                document.data?.let {
+                    StudentQuizCompletion.fromMap(it, document.id)
+                }
+            } else {
+                null
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+            null
+        }
+    }
 }
