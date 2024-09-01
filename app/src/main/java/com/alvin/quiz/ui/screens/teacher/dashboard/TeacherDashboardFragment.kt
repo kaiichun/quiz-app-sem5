@@ -1,13 +1,9 @@
 package com.alvin.quiz.ui.screens.teacher.dashboard
 
-import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.SearchView
 import androidx.appcompat.app.AlertDialog
-import androidx.core.view.isInvisible
+import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -16,12 +12,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.alvin.quiz.R
 import com.alvin.quiz.data.model.Quiz
 import com.alvin.quiz.databinding.FragmentTeacherDashboardBinding
-import com.alvin.quiz.databinding.FragmentTeacherHomeBinding
 import com.alvin.quiz.databinding.LayoutAlertDeleteQuizViewBinding
-import com.alvin.quiz.ui.adapter.QuestionAdapter
 import com.alvin.quiz.ui.adapter.QuizAdapter
 import com.alvin.quiz.ui.screens.base.BaseFragment
-import com.alvin.quiz.ui.screens.teacher.home.TeacherHomeViewModel
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -31,7 +25,6 @@ class TeacherDashboardFragment : BaseFragment<FragmentTeacherDashboardBinding>()
     private lateinit var quizAdapter: QuizAdapter
     private lateinit var noFilterQuiz: List<Quiz>
     override fun getLayoutResource() = R.layout.fragment_teacher_dashboard
-
 
     override fun onBindData(view: View) {
         super.onBindData(view)
@@ -51,15 +44,24 @@ class TeacherDashboardFragment : BaseFragment<FragmentTeacherDashboardBinding>()
             }
         }
 
-        binding?.svSearchView?.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String?): Boolean {
-                return false
-            }
-            override fun onQueryTextChange(newText: String?): Boolean {
-                filterQuiz(newText)
-                return true
+        lifecycleScope.launch {
+            viewModel.finish.collect {
+                Snackbar.make(view, " Quiz is deleted ", Snackbar.LENGTH_SHORT).setBackgroundTint(
+                    ContextCompat.getColor(requireContext(), R.color.darkGreen)
+                ).show()
             }
         }
+
+        binding?.svSearchView?.setOnQueryTextListener(
+            object : SearchView.OnQueryTextListener {
+                override fun onQueryTextSubmit(query: String?): Boolean {
+                    return false
+                }
+                override fun onQueryTextChange(newText: String?): Boolean {
+                    filterQuiz(newText)
+                    return true
+                }
+            }
         )
     }
 
@@ -81,7 +83,6 @@ class TeacherDashboardFragment : BaseFragment<FragmentTeacherDashboardBinding>()
         val layoutManager = LinearLayoutManager(requireContext())
         binding?.rvQuiz?.adapter = quizAdapter
         binding?.rvQuiz?.layoutManager = layoutManager
-
         quizAdapter.listener = object : QuizAdapter.Listener {
             override fun onClick(quiz: Quiz) {
                 quiz.quizId.let {

@@ -17,25 +17,6 @@ class StudentResultRepository(private val authService: AuthService) {
         return Firebase.firestore.collection("quizzes/$quizId/students/$studentId/results")
     }
 
-    fun getAllResults(quizId: String, studentId: String) = callbackFlow<List<StudentResult>> {
-        val listener = getCollection(quizId, studentId).addSnapshotListener { value, error ->
-            if (error != null) {
-                throw error
-            }
-            val results = mutableListOf<StudentResult>()
-            value?.documents?.map { item ->
-                item.data?.let { resultMap ->
-                    val result = StudentResult.fromMap(resultMap)
-                    results.add(result)
-                }
-            }
-            trySend(results)
-        }
-        awaitClose {
-            listener.remove()
-        }
-    }
-
     suspend fun hasResult(quizId: String, studentId: String): Boolean {
         val query = Firebase.firestore.collection("quizzes/$quizId/students/$studentId/results")
             .get()
@@ -47,14 +28,5 @@ class StudentResultRepository(private val authService: AuthService) {
     suspend fun addResult(quizId: String, studentId: String, result: StudentResult): String? {
         val response = getCollection(quizId, studentId).add(result.toMap()).await()
         return response?.id
-    }
-
-    suspend fun deleteResult(quizId: String, studentId: String, resultId: String) {
-        getCollection(quizId, studentId).document(resultId).delete().await()
-    }
-
-    suspend fun getResultById(quizId: String, studentId: String, resultId: String): StudentResult? {
-        val res = getCollection(quizId, studentId).document(resultId).get().await()
-        return res.data?.let { StudentResult.fromMap(it) }
     }
 }

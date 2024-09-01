@@ -33,23 +33,11 @@ class QuizStatusAdapter : RecyclerView.Adapter<QuizStatusAdapter.QuizViewHolder>
         holder.bind(item)
     }
 
+    fun isEmpty(): Boolean = quizzes.isEmpty()
+
     fun setQuizzesStatus(quizzes: List<Quiz>) {
         this.quizzes = quizzes
         notifyDataSetChanged()
-    }
-
-    fun letTextBecomeDot(text: String, maxLength: Int): String {
-        val lines = text.lines()
-        val firstLine = lines.firstOrNull() ?: ""
-        return if (firstLine.length > maxLength) {
-            firstLine.substring(0, maxLength) + "..."
-        } else {
-            if (lines.size > 1) {
-                "$firstLine..."
-            } else {
-                firstLine
-            }
-        }
     }
 
     inner class QuizViewHolder(
@@ -76,7 +64,6 @@ class QuizStatusAdapter : RecyclerView.Adapter<QuizStatusAdapter.QuizViewHolder>
                 clipboard?.setPrimaryClip(clip)
                 Snackbar.make(binding.root, "Access ID copied to clipboard", Snackbar.LENGTH_SHORT).show()
             }
-
         }
     }
 

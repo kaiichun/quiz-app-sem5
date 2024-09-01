@@ -8,8 +8,6 @@ data class Question(
     val timeLimit: Int = 15,
     val mark: Int = 1,
     val createdAt: Long = System.currentTimeMillis(),
-    val updatedBy: String? = null,
-    val updatedAt: Long? = null
 ) {
     fun toMap(): Map<String, Any?> {
         return hashMapOf(
@@ -20,8 +18,6 @@ data class Question(
             "timeLimit" to timeLimit,
             "mark" to mark,
             "createdAt" to createdAt,
-            "updatedBy" to updatedBy,
-            "updatedAt" to updatedAt
         )
     }
 
@@ -35,8 +31,6 @@ data class Question(
                 timeLimit = map["timeLimit"] as? Int ?: 15,
                 mark = map["mark"] as? Int ?: 1,
                 createdAt = map["createdAt"] as? Long ?: System.currentTimeMillis(),
-                updatedBy = map["updatedBy"] as? String,
-                updatedAt = map["updatedAt"] as? Long
             )
         }
     }

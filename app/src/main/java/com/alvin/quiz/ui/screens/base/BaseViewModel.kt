@@ -34,7 +34,6 @@ abstract class BaseViewModel : ViewModel() {
     protected val _completions = MutableLiveData<List<StudentQuizCompletion>>()
     val completions: LiveData<List<StudentQuizCompletion>> = _completions
 
-
     suspend fun <T> errorHandler(function: suspend () -> T?): T? {
         return try {
             function()

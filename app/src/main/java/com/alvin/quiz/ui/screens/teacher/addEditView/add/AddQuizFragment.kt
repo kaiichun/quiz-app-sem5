@@ -37,13 +37,11 @@ class AddQuizFragment : BaseAddEditQuizFragment() {
     }
     override fun onBindView(view: View) {
         super.onBindView(view)
-
-        setupRecyclerView()
+        setupAdapter()
         setupUploadButton()
-
         lifecycleScope.launch {
             viewModel.finish.collect {
-                Snackbar.make(view, "Quiz add successfully", Snackbar.LENGTH_SHORT).setBackgroundTint(
+                Snackbar.make(view, "Quiz create successfully", Snackbar.LENGTH_SHORT).setBackgroundTint(
                     ContextCompat.getColor(requireContext(), R.color.darkGreen)
                 ).show()
             }
@@ -61,7 +59,7 @@ class AddQuizFragment : BaseAddEditQuizFragment() {
         }
     }
 
-    private fun setupRecyclerView() {
+    private fun setupAdapter() {
         adapter = QuestionAdapter(viewModel.getQuestions())
         binding?.rvQuestion?.apply {
             layoutManager = LinearLayoutManager(requireContext())
@@ -71,18 +69,16 @@ class AddQuizFragment : BaseAddEditQuizFragment() {
 
     private val csvFilePickerLauncher = registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
         uri?.let {
-            try {
-                val questions = CSVUtils.readCSVFile(requireContext(), it)
-                if (questions.isNotEmpty()) {
-                    viewModel.setQuestions(questions)
-                    adapter.setQuestions(questions)
-                    adapter.notifyDataSetChanged()
-                    Snackbar.make(requireView(), "CSV uploaded successfully!", Snackbar.LENGTH_LONG).show()
-                } else {
-                    Snackbar.make(requireView(), "CSV Format no match", Snackbar.LENGTH_LONG).show()
-                }
-            } catch (e: IllegalArgumentException) {
-                Snackbar.make(requireView(), e.message ?: "Format no match", Snackbar.LENGTH_LONG).show()
+            val questions = CSVUtils.readCSVFile(requireContext(), it)
+            if (questions.isNotEmpty()) {
+                viewModel.setQuestions(questions)
+                adapter.setQuestions(questions)
+                adapter.notifyDataSetChanged()
+                Toast.makeText(requireContext(), "CSV uploaded successfully!", Toast.LENGTH_SHORT).show()
+            } else {
+                Snackbar.make(requireView(), "CSV Format no match", Snackbar.LENGTH_LONG)
+                    .setBackgroundTint(ContextCompat.getColor(requireContext(), R.color.red))
+                    .show()
             }
         }
     }
@@ -96,17 +92,14 @@ class AddQuizFragment : BaseAddEditQuizFragment() {
     private fun loading() {
         binding?.loadingOverlay?.isVisible = true
         val tvLoadingText = binding?.tvLoadingText
-
         lifecycleScope.launch {
             var progress = 0
             while (progress < 100) {
                 val randomIncrement = Random.nextInt(1, 15)
                 progress += randomIncrement
-
                 if (progress > 100) {
                     progress = 100
                 }
-
                 tvLoadingText?.text = getString(R.string.creating, progress)
                 delay(Random.nextLong(50, 250))
             }

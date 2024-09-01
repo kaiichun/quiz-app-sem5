@@ -2,6 +2,7 @@ package com.alvin.quiz.ui.screens.teacher.home
 
 import android.view.View
 import android.widget.ImageView
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -48,7 +49,7 @@ class TeacherHomeFragment : BaseFragment<FragmentTeacherHomeBinding>() {
 
     override fun onBindData(view: View) {
         super.onBindData(view)
-        observeViewModelData()
+        observeViewModel()
     }
 
     private fun setupAttendQuizAdapter() {
@@ -83,16 +84,24 @@ class TeacherHomeFragment : BaseFragment<FragmentTeacherHomeBinding>() {
         }
     }
 
-    private fun observeViewModelData() {
+    private fun noContentVisibility() {
+        binding?.tvNoContentAttend?.visibility = if (attendQuizAdapter.isEmpty()) View.VISIBLE else View.GONE
+        binding?.tvNoContentNoAttend?.visibility = if (noAttendQuizAdapter.isEmpty()) View.VISIBLE else View.GONE
+
+    }
+
+    private fun observeViewModel() {
         lifecycleScope.launch {
             viewModel.noAttendQuizzes.collect { quizzes ->
                 noAttendQuizAdapter.setQuizzesStatus(quizzes)
+                noContentVisibility()
             }
         }
 
         lifecycleScope.launch {
             viewModel.quizzes.collect { quizzes ->
                 attendQuizAdapter.setQuizzesStatus(quizzes)
+                noContentVisibility()
             }
         }
     }

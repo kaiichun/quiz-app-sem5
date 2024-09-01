@@ -1,6 +1,7 @@
 package com.alvin.quiz.ui.screens.login
 
 import android.view.View
+import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -38,6 +39,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
     private fun observeViewModel() {
         lifecycleScope.launch {
             viewModel.success.collect { role ->
+                Toast.makeText(requireContext(), "Welcome back to Quiz App", Toast.LENGTH_SHORT).show()
                 when (role) {
                     UserRole.TEACHER -> findNavController().navigate(
                         LoginFragmentDirections.actionLoginToTeacherHome()
@@ -52,10 +54,10 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
         lifecycleScope.launch {
             viewModel.isLoading.collect { isLoading ->
                 if (isLoading) {
-                    binding?.loadingOverlay?.isVisible = true
+                    binding?.loadingOverlayLogin?.isVisible = true
                     loading()
                 } else {
-                    binding?.loadingOverlay?.isVisible = false
+                    binding?.loadingOverlayLogin?.isVisible = false
                 }
             }
         }
@@ -71,8 +73,8 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
     }
 
     private fun loading() {
-        binding?.loadingOverlay?.isVisible = true
-        val tvLoadingText = binding?.tvLoadingText
+        binding?.loadingOverlayLogin?.isVisible = true
+        val tvLoadingText = binding?.tvLoginLoadingText
 
         lifecycleScope.launch {
             var progress = 0
@@ -87,7 +89,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
                 tvLoadingText?.text = getString(R.string.verifying, progress)
                 delay(Random.nextLong(50, 250))
             }
-            binding?.loadingOverlay?.isVisible = false
+            binding?.loadingOverlayLogin?.isVisible = false
         }
     }
 

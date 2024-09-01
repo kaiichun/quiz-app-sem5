@@ -39,7 +39,6 @@ class StudentQuizCompletionAdapter: RecyclerView.Adapter<StudentQuizCompletionAd
     class RankingViewHolder(
         private val binding: LayoutStudentRankingBinding
     ) : RecyclerView.ViewHolder(binding.root) {
-
         fun bind(student: StudentQuizCompletion, rank: Int) {
             binding.run {
                 Glide.with(binding.root)
@@ -50,7 +49,6 @@ class StudentQuizCompletionAdapter: RecyclerView.Adapter<StudentQuizCompletionAd
             binding.tvRanking.text = "${rank}. "
             binding.tvStudentName.text = "${student.firstName} ${student.lastName}"
             binding.tvStudentScore.text = student.totalScore.toString()
-
         }
     }
 }

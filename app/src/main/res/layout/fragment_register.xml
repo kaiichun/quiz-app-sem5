@@ -9,8 +9,8 @@
 
         <androidx.cardview.widget.CardView
             android:id="@+id/loading_overlay"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="250sp"
+            android:layout_height="250sp"
             android:layout_gravity="center"
             android:visibility="gone"
             app:cardCornerRadius="@dimen/l"
@@ -29,7 +29,6 @@
                 android:layout_marginBottom="30dp"
                 android:gravity="center"
                 android:orientation="vertical">
-
 
                 <ProgressBar
                     android:layout_width="45sp"
@@ -51,43 +50,13 @@
 
         <ImageView
             android:id="@+id/imageView"
-            android:layout_width="120dp"
-            android:layout_height="120dp"
-            android:src="@drawable/ic_registration"
-            app:layout_constraintBottom_toTopOf="@+id/guidelineHorizontal1"
-            app:layout_constraintEnd_toStartOf="@+id/guidelineVertical2"
-            app:layout_constraintStart_toStartOf="@+id/guidelineVertical1"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/textView"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="@dimen/xl"
-            android:textStyle="bold"
-            android:text="@string/register"
-            app:layout_constraintEnd_toStartOf="@+id/guidelineVertical2"
-            app:layout_constraintStart_toStartOf="@+id/guidelineVertical1"
-            app:layout_constraintTop_toBottomOf="@+id/imageView" />
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/lyId"
-            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="20dp"
-            android:layout_marginVertical="10dp"
-            app:layout_constraintBottom_toTopOf="@+id/ly0"
+            android:layout_height="200sp"
+            android:src="@drawable/register"
+            app:layout_constraintBottom_toTopOf="@+id/guidelineHorizontal1"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etId"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Enter ID" />
-
-        </com.google.android.material.textfield.TextInputLayout>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
 
         <com.google.android.material.textfield.TextInputLayout
@@ -178,7 +147,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="20dp"
             android:layout_marginVertical="10dp"
-            app:layout_constraintBottom_toTopOf="@+id/guidelineHorizontal2"
+            app:layout_constraintBottom_toTopOf="@+id/lyId"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.4"
             app:layout_constraintStart_toStartOf="parent">
@@ -187,8 +156,27 @@
                 android:id="@+id/etConfirmPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textPassword"
-                android:hint="@string/confirm_password" />
+                android:hint="@string/confirm_password"
+                android:inputType="textPassword" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/lyId"
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginVertical="10dp"
+            app:layout_constraintBottom_toTopOf="@+id/guidelineHorizontal2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etId"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/enter_id" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -255,14 +243,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.3" />
+            app:layout_constraintGuide_percent="0.35" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guidelineHorizontal2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.85" />
+            app:layout_constraintGuide_percent="0.8" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guidelineHorizontal3"

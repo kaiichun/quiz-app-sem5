@@ -2,6 +2,7 @@ package com.alvin.quiz.ui.screens.student.quiz
 
 import android.os.CountDownTimer
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
@@ -150,24 +151,21 @@ class QuizViewFragment : BaseFragment<FragmentQuizViewBinding>() {
                 dialog.dismiss()
                 findNavController().popBackStack()
             }
-        }, 3000)
+        }, 2000)
     }
 
 
     private fun loading() {
         binding?.loadingOverlay?.isVisible = true
         val tvLoadingText = binding?.tvLoadingText
-
         lifecycleScope.launch {
             var progress = 0
             while (progress < 100) {
                 val randomIncrement = Random.nextInt(1, 15)
                 progress += randomIncrement
-
                 if (progress > 100) {
                     progress = 100
                 }
-
                 tvLoadingText?.text = getString(R.string.submit, progress)
                 delay(Random.nextLong(50, 250))
             }

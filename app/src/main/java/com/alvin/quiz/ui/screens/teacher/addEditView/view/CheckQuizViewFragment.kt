@@ -1,10 +1,6 @@
 package com.alvin.quiz.ui.screens.teacher.addEditView.view
 
-import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
@@ -13,9 +9,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.alvin.quiz.R
-import com.alvin.quiz.data.model.Question
 import com.alvin.quiz.databinding.FragmentCheckQuizViewBinding
-import com.alvin.quiz.ui.adapter.AnswerQuestionAdapter
 import com.alvin.quiz.ui.adapter.QuestionAdapter
 import com.alvin.quiz.ui.screens.base.BaseFragment
 import com.google.android.material.snackbar.Snackbar
@@ -95,17 +89,14 @@ class CheckQuizViewFragment : BaseFragment<FragmentCheckQuizViewBinding>() {
     private fun loading() {
         binding?.loadingOverlay?.isVisible = true
         val tvLoadingText = binding?.tvLoadingText
-
         lifecycleScope.launch {
             var progress = 0
             while (progress < 100) {
                 val randomIncrement = Random.nextInt(1, 15)
                 progress += randomIncrement
-
                 if (progress > 100) {
                     progress = 100
                 }
-
                 tvLoadingText?.text = getString(R.string.submit, progress)
                 delay(Random.nextLong(50, 250))
             }

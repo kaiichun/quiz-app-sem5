@@ -1,25 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <androidx.constraintlayout.widget.ConstraintLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".ui.screens.login.LoginFragment">
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/loading_overlay"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:id="@+id/loading_overlay_login"
+            android:layout_width="250sp"
+            android:layout_height="250sp"
             android:layout_gravity="center"
+            android:backgroundTint="@color/blue"
             android:visibility="visible"
             app:cardCornerRadius="@dimen/l"
-            android:backgroundTint="@color/blue"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="@+id/imageView">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -37,7 +36,7 @@
                     android:indeterminateTint="@color/white" />
 
                 <TextView
-                    android:id="@+id/tvLoadingText"
+                    android:id="@+id/tvLoginLoadingText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10sp"
@@ -51,24 +50,12 @@
 
         <ImageView
             android:id="@+id/imageView"
-            android:layout_width="120dp"
-            android:layout_height="120dp"
-            android:src="@drawable/ic_person"
-            app:layout_constraintBottom_toTopOf="@+id/guidelineHorizontal1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/quiz_time_png_image"
             app:layout_constraintEnd_toStartOf="@+id/guidelineVertical2"
             app:layout_constraintStart_toStartOf="@+id/guidelineVertical1"
             app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="@dimen/xl"
-            android:textStyle="bold"
-            android:text="@string/login"
-            app:layout_constraintEnd_toStartOf="@+id/guidelineVertical2"
-            app:layout_constraintStart_toStartOf="@+id/guidelineVertical1"
-            app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/ly1"
@@ -179,6 +166,13 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             app:layout_constraintGuide_percent="0.9" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guidelineHorizontal4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.5" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

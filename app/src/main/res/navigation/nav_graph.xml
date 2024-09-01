@@ -11,7 +11,11 @@
         tools:layout="@layout/fragment_login" >
         <action
             android:id="@+id/actionLoginToRegister"
-            app:destination="@id/registerFragment" />
+            app:destination="@id/registerFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
         <action
             android:id="@+id/actionLoginToStudentHome"
             app:destination="@id/studentHomeFragment" />
@@ -26,13 +30,25 @@
         tools:layout="@layout/fragment_register" >
         <action
             android:id="@+id/actionRegisterToLogin"
-            app:destination="@id/loginFragment" />
+            app:destination="@id/loginFragment"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left" />
         <action
             android:id="@+id/actionRegisterToStudentHome"
-            app:destination="@id/studentHomeFragment" />
+            app:destination="@id/studentHomeFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
         <action
             android:id="@+id/actionRegisterToTeacherHome"
-            app:destination="@id/teacherHomeFragment" />
+            app:destination="@id/teacherHomeFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/studentHomeFragment"
@@ -48,7 +64,11 @@
         </action>
         <action
             android:id="@+id/actionStudentHomeToLogin"
-            app:destination="@id/loginFragment" />
+            app:destination="@id/loginFragment"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left" />
     </fragment>
     <fragment
         android:id="@+id/teacherHomeFragment"
@@ -63,7 +83,11 @@
             app:destination="@id/checkQuizViewFragment" />
         <action
             android:id="@+id/actionTeacherHomeToLogin"
-            app:destination="@id/loginFragment" />
+            app:destination="@id/loginFragment"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left" />
     </fragment>
     <fragment
         android:id="@+id/teacherDashboardFragment"
@@ -108,7 +132,11 @@
             app:argType="string" />
         <action
             android:id="@+id/actionQuizViewToStudentHome"
-            app:destination="@id/studentHomeFragment" />
+            app:destination="@id/studentHomeFragment"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left" />
     </fragment>
     <fragment
         android:id="@+id/profileFragment"
@@ -125,7 +153,11 @@
             app:argType="string" />
         <action
             android:id="@+id/actionCheckQuizVieToTeacherDashboard"
-            app:destination="@id/teacherDashboardFragment" />
+            app:destination="@id/teacherDashboardFragment"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left" />
         <action
             android:id="@+id/actionCheckQuizViewToEditQuiz"
             app:destination="@id/editQuizFragment" />

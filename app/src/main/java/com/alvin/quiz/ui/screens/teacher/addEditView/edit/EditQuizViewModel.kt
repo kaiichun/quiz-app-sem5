@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.alvin.quiz.data.model.Question
 import com.alvin.quiz.data.model.Quiz
 import com.alvin.quiz.data.repository.QuizRepository
+import com.alvin.quiz.data.repository.UserRepository
 import com.alvin.quiz.ui.screens.base.BaseViewModel
 import com.alvin.quiz.ui.screens.teacher.addEditView.base.BaseAddEditQuizViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -20,8 +21,13 @@ import javax.inject.Inject
 
 @HiltViewModel
 class EditQuizViewModel @Inject constructor(
-    private val quizRepository: QuizRepository
-) : BaseAddEditQuizViewModel()  {
+    private val quizRepository: QuizRepository,
+    private val userRepository: UserRepository
+) : BaseAddEditQuizViewModel() {
+
+    private suspend fun getCurrentUserId(): String {
+        return userRepository.getUid()
+    }
 
     fun getQuizById(quizId: String) {
         viewModelScope.launch {
@@ -36,19 +42,35 @@ class EditQuizViewModel @Inject constructor(
         expiryDate: String,
     ) {
         quiz.value?.let {
-            val newQuiz = it.copy(
-                title = title,
-                description = description,
-                publishDate = parsingDate(publishDate),
-                expiryDate = parsingDate(expiryDate),
-                questions = _questions.value,
-            )
             viewModelScope.launch {
+                if (title.isEmpty()) {
+                    _error.emit("Title cannot be empty")
+                    return@launch
+                }
+                if (publishDate.isEmpty()) {
+                    _error.emit("Publish Date cannot be empty")
+                    return@launch
+                }
+                if (expiryDate.isEmpty()) {
+                    _error.emit("Expiry Date cannot be empty")
+                    return@launch
+                }
                 loading.value = true
                 try {
+                    val user = userRepository.getUserDetails(getCurrentUserId())
+                    val updatedBy = "${user?.firstName} ${user?.lastName}"
+                    val newQuiz = it.copy(
+                        title = title,
+                        description = description,
+                        publishDate = parsingDate(publishDate),
+                        expiryDate = parsingDate(expiryDate),
+                        questions = _questions.value,
+                        updatedAt = System.currentTimeMillis(),
+                        updatedBy = updatedBy
+                    )
                     quizRepository.updateQuiz(newQuiz)
                     finish.emit(Unit)
-                }catch (e: Exception) {
+                } catch (e: Exception) {
                     _error.emit(e.message ?: "Update Error")
                 } finally {
                     loading.value = false

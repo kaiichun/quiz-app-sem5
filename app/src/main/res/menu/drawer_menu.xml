@@ -14,12 +14,7 @@
     <item android:title="@string/dashboard"
         android:id="@+id/teacherDashboardFragment"
         android:visible="true"
-        android:icon="@drawable/ic_history"
-        android:actionLayout="@layout/layout_menu" />
-    <item android:title="@string/result"
-        android:id="@+id/resultFragment"
-        android:visible="true"
-        android:icon="@drawable/ic_history"
+        android:icon="@drawable/ic_dashboard"
         android:actionLayout="@layout/layout_menu" />
     <item android:title="@string/profile"
         android:id="@+id/profileFragment"

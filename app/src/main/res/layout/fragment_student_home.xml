@@ -80,7 +80,7 @@
                     android:gravity="center"
                     android:textStyle="bold"
                     android:layout_marginTop="@dimen/xxxxs"
-                    android:text="First Place"
+                    android:text="@string/first_place"
                     android:textSize="16sp" />
 
                 <TextView
@@ -88,7 +88,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="1000"
+                    android:text="@string/_1000"
                     android:textSize="14sp" />
             </LinearLayout>
 
@@ -120,7 +120,7 @@
                     android:gravity="center"
                     android:textStyle="bold"
                     android:layout_marginTop="@dimen/xxxxs"
-                    android:text="Second Place"
+                    android:text="@string/second_place"
                     android:textSize="16sp" />
 
                 <TextView
@@ -128,7 +128,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="600"
+                    android:text="@string/_1000"
                     android:textSize="14sp" />
             </LinearLayout>
 
@@ -161,7 +161,7 @@
                     android:gravity="center"
                     android:textStyle="bold"
                     android:layout_marginTop="@dimen/xxxxs"
-                    android:text="Third Place"
+                    android:text="@string/third_place"
                     android:textSize="16sp" />
 
                 <TextView
@@ -169,9 +169,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="800"
+                    android:text="@string/_1000"
                     android:textSize="14sp" />
             </LinearLayout>
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <TextView
@@ -181,7 +182,7 @@
             android:layout_marginTop="64dp"
             android:gravity="center"
             android:visibility="visible"
-            android:text="no have any ranking"
+            android:text="@string/no_ranking_available"
             android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="@+id/rvRankings"

@@ -70,7 +70,6 @@ class QuizViewModel @Inject constructor(
                     val updatedQuiz = quiz.copy(status = true)
                     quizRepository.updateQuiz(updatedQuiz)
                 }
-
                 finish.emit(Unit)
             }
         } catch (e: Exception) {

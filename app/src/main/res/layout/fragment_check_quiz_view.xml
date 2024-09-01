@@ -122,7 +122,7 @@
                 android:id="@+id/tvAccessId"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="123456"
+                android:text="@string/_123456"
                 android:textSize="14sp"
                 app:layout_constraintBottom_toTopOf="@+id/guidelineHorizontal2"
                 app:layout_constraintStart_toStartOf="@+id/guidelineVertical1" />
@@ -152,6 +152,7 @@
                 android:layout_height="0dp"
                 android:layout_marginBottom="@dimen/m"
                 android:layout_marginTop="@dimen/m"
+                tools:listitem="@layout/layout_question_card_view"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

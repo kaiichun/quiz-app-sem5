@@ -2,6 +2,7 @@ package com.alvin.quiz.ui.screens.register
 
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -42,6 +43,7 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>() {
 
         lifecycleScope.launch {
             viewModel.success.collect { role ->
+                Toast.makeText(requireContext(), "Welcome to Quiz App", Toast.LENGTH_SHORT).show()
                 when (role) {
                     UserRole.TEACHER -> findNavController().navigate(
                         RegisterFragmentDirections.actionRegisterToTeacherHome()

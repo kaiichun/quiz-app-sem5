@@ -7,8 +7,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="65sp"
-        >
+        android:layout_marginTop="65sp">
 
         <LinearLayout
             android:id="@+id/linearLayout2"
@@ -17,41 +16,30 @@
             android:orientation="vertical"
             android:padding="16dp">
 
-            <!-- Quiz Title Section -->
-            <!--        <TextView-->
-            <!--            android:id="@+id/quizTitleTextView"-->
-            <!--            android:layout_width="wrap_content"-->
-            <!--            android:layout_height="wrap_content"-->
-            <!--            android:text="Create a Quiz"-->
-            <!--            android:layout_gravity="center"-->
-            <!--            android:layout_marginBottom="@dimen/s"-->
-            <!--            android:textSize="24sp"-->
-            <!--            android:textStyle="bold" />-->
-
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Quiz Title"
+                android:text="@string/quiz_title"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
             <EditText
                 android:id="@+id/etQuizTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Enter quiz title" />
+                android:hint="@string/enter_quiz_title" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:text="@string/description"
+                android:text="@string/description1"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
             <EditText
                 android:id="@+id/etDescription"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Enter quiz description" />
+                android:hint="@string/enter_quiz_description" />
 
             <LinearLayout
                 android:id="@+id/linearLayout"
@@ -69,7 +57,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Publish Date"
+                        android:text="@string/publish_date"
                         android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
                     <EditText
@@ -77,7 +65,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:focusable="false"
-                        android:hint="Select Publish Date"
+                        android:hint="@string/select_publish_date"
                         android:onClick="showPublishDatePicker" />
                 </LinearLayout>
 
@@ -91,8 +79,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-
-                        android:text="Expiry Date"
+                        android:text="@string/expiry_date"
                         android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
                     <EditText
@@ -100,7 +87,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:focusable="false"
-                        android:hint="Select Expiry Date"
+                        android:hint="@string/select_expiry_date"
                         android:onClick="showExpiryDatePicker" />
                 </LinearLayout>
             </LinearLayout>
@@ -118,7 +105,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:layout_weight="2"
-                    android:text="Upload Questions:"
+                    android:text="@string/upload_questions"
                     android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
                 <Button
@@ -134,21 +121,19 @@
                     android:text="@string/upload" />
             </LinearLayout>
 
-            <!-- RecyclerView to Display Questions -->
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvQuestion"
                 android:layout_width="match_parent"
                 android:layout_height="260dp"
-                android:layout_marginTop="16dp" />
+                android:layout_marginTop="16dp"
+                tools:listitem="@layout/layout_question_card_view" />
 
-            <!-- Save Quiz Button -->
             <Button
                 android:id="@+id/btnSaveQuiz"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:text="Save Quiz" />
-
+                android:text="@string/create_quiz" />
 
         </LinearLayout>
 

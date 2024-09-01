@@ -20,23 +20,6 @@ class UserRepository(
         return Firebase.firestore.collection("users")
     }
 
-    suspend fun getUserByEmail(email: String): User? {
-        return try {
-            val snapshot = Firebase.firestore.collection("users")
-                .whereEqualTo("email", email)
-                .get()
-                .await()
-
-            if (!snapshot.isEmpty) {
-                snapshot.documents.firstOrNull()?.let {
-                    User.fromMap(it.data ?: emptyMap())
-                }
-            } else null
-        } catch (e: Exception) {
-            null
-        }
-    }
-
     suspend fun createUser(user: User) {
         getUserCollectionReference().document(getUid()).set(user).await()
     }

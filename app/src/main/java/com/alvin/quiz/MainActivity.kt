@@ -3,6 +3,7 @@ package com.alvin.quiz
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
+import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -28,7 +29,6 @@ class MainActivity : AppCompatActivity() {
 
     @Inject
     lateinit var authService: AuthService
-
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var navController: NavController
 
@@ -39,7 +39,20 @@ class MainActivity : AppCompatActivity() {
         setupToolbar()
         setupDestinationVisibility()
         setupLogout()
-        navigateBasedOnUserRole()
+        lifecycleScope.launch {
+            showLoading()
+            navigateBasedOnUserRole()
+            hideLoading()
+        }
+    }
+
+    private fun showLoading() {
+        findViewById<View>(R.id.loading_overlay_login)?.isVisible = true
+        findViewById<TextView>(R.id.tvLoginLoadingText)?.text = getString(R.string.authentication)
+    }
+
+    private fun hideLoading() {
+        findViewById<View>(R.id.loading_overlay_login)?.isVisible = false
     }
 
     private fun setupNavigation() {
@@ -124,7 +137,6 @@ class MainActivity : AppCompatActivity() {
                         }
                     }
                 } else {
-                    // If UID is null, navigate to login
                     navController.navigate(
                         R.id.loginFragment,
                         null,
@@ -144,6 +156,7 @@ class MainActivity : AppCompatActivity() {
 
         if (uid != null) {
             lifecycleScope.launch {
+                showLoading()
                 val userRole = authService.getUserRole(uid)
                 val navView = findViewById<NavigationView>(R.id.navigationView)
                 val menu = navView.menu
@@ -160,9 +173,9 @@ class MainActivity : AppCompatActivity() {
                                 .build()
                         )
                     }
+
                     UserRole.TEACHER -> {
                         menu.findItem(R.id.studentHomeFragment).isVisible = false
-                        menu.findItem(R.id.resultFragment).isVisible = false
                         navController.navigate(
                             R.id.teacherHomeFragment,
                             null,
@@ -171,6 +184,7 @@ class MainActivity : AppCompatActivity() {
                                 .build()
                         )
                     }
+
                     else -> {
                         navController.navigate(
                             R.id.loginFragment,
@@ -181,8 +195,10 @@ class MainActivity : AppCompatActivity() {
                         )
                     }
                 }
+                hideLoading()
             }
         } else {
+            hideLoading()
             navController.navigate(R.id.loginFragment)
         }
     }

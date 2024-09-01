@@ -1,7 +1,6 @@
 package com.alvin.quiz.core.di.module
 
 import com.alvin.quiz.core.service.AuthService
-import com.alvin.quiz.data.repository.QuestionRepository
 import com.alvin.quiz.data.repository.QuizRepository
 import com.alvin.quiz.data.repository.StudentQuizCompletionRepository
 import com.alvin.quiz.data.repository.StudentResultRepository
@@ -15,11 +14,6 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 class RepositoryModule{
-    @Provides
-    @Singleton
-    fun provideQuestionRepository(authService: AuthService): QuestionRepository {
-        return QuestionRepository(authService)
-    }
     @Provides
     @Singleton
     fun provideQuizRepository(authService: AuthService): QuizRepository {

@@ -9,7 +9,6 @@
         android:layout_height="match_parent"
         android:layout_marginTop="65sp"
         tools:context=".ui.screens.teacher.dashboard.TeacherDashboardFragment">
-
         <TextView
             android:id="@+id/textView8"
             android:layout_width="wrap_content"
@@ -17,7 +16,7 @@
             android:layout_marginHorizontal="@dimen/m"
             android:layout_marginTop="@dimen/m"
             android:gravity="center_vertical"
-            android:text="Manage Quiz"
+            android:text="@string/manage_quiz"
             android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
@@ -45,7 +44,6 @@
             app:layout_constraintTop_toTopOf="parent"
             android:contentDescription="@string/todo" />
 
-
         <LinearLayout
             android:id="@+id/searchBarLayout"
             android:layout_width="match_parent"
@@ -72,18 +70,82 @@
 
         </LinearLayout>
 
-        <TextView
+        <com.google.android.material.card.MaterialCardView
             android:id="@+id/tvNoContent"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_margin="10sp"
+            android:backgroundTint="@color/app_bg"
             android:gravity="center"
-            android:drawableTop="@drawable/ic_edit"
-            android:text="No quizzes available"
             app:layout_constraintBottom_toBottomOf="@+id/rvQuiz"
-            app:layout_constraintEnd_toEndOf="@+id/rvQuiz"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/rvQuiz" />
+            app:layout_constraintTop_toTopOf="@+id/rvQuiz">
 
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/s"
+                        android:layout_marginEnd="@dimen/xxxxs"
+                        android:text="@string/create_quiz_now"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+                    <ImageView
+                        android:layout_width="20sp"
+                        android:layout_height="20sp"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:layout_marginTop="@dimen/xxxxxs"
+                        android:layout_marginEnd="@dimen/xxxl"
+                        android:src="@drawable/arrow"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:orientation="vertical"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <ImageView
+                        android:layout_width="80sp"
+                        android:layout_height="80sp"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:src="@drawable/empty_content"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginHorizontal="@dimen/m"
+                        android:layout_marginTop="@dimen/xxxs"
+                        android:text="@string/no_quizzes_available"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </com.google.android.material.card.MaterialCardView>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvQuiz"

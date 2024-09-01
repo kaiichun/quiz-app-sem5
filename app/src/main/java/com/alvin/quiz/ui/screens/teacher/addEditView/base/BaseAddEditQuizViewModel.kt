@@ -1,6 +1,5 @@
 package com.alvin.quiz.ui.screens.teacher.addEditView.base
 
-import androidx.lifecycle.viewModelScope
 import com.alvin.quiz.data.model.Question
 import com.alvin.quiz.data.model.Quiz
 import com.alvin.quiz.ui.screens.base.BaseViewModel

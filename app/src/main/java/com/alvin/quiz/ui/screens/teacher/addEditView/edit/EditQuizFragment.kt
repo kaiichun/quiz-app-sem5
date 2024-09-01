@@ -1,7 +1,6 @@
 package com.alvin.quiz.ui.screens.teacher.addEditView.edit
 
 import android.net.Uri
-import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
@@ -20,9 +19,6 @@ import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import java.text.SimpleDateFormat
-import java.util.Date
-import java.util.Locale
 import kotlin.random.Random
 
 @AndroidEntryPoint
@@ -42,7 +38,7 @@ class EditQuizFragment : BaseAddEditQuizFragment() {
         super.onBindView(view)
 
         questionAdapter = QuestionAdapter(emptyList())
-        setupRecyclerView()
+        setupAdapter()
         setupUploadButton()
         lifecycleScope.launch {
             viewModel.quiz.collect { quiz ->
@@ -81,7 +77,7 @@ class EditQuizFragment : BaseAddEditQuizFragment() {
 
     }
 
-    private fun setupRecyclerView() {
+    private fun setupAdapter() {
         val layoutManager = LinearLayoutManager(requireContext())
         binding?.rvQuestion?.adapter = questionAdapter
         binding?.rvQuestion?.layoutManager = layoutManager
@@ -96,7 +92,9 @@ class EditQuizFragment : BaseAddEditQuizFragment() {
                 questionAdapter.notifyDataSetChanged()
                 Toast.makeText(requireContext(), "CSV uploaded successfully!", Toast.LENGTH_SHORT).show()
             } else {
-                Toast.makeText(requireContext(), "No questions found in the CSV.", Toast.LENGTH_SHORT).show()
+                Snackbar.make(requireView(), "CSV Format no match", Snackbar.LENGTH_LONG)
+                    .setBackgroundTint(ContextCompat.getColor(requireContext(), R.color.red))
+                    .show()
             }
         }
     }

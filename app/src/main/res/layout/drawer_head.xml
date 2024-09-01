@@ -8,18 +8,20 @@
     android:layout_height="wrap_content">
 
     <ImageView
-        android:layout_width="30dp"
-        android:layout_height="match_parent"
+        android:contentDescription="@string/todo"
+        android:layout_width="50sp"
+        android:layout_height="50sp"
+        android:layout_marginStart="@dimen/xs"
         android:layout_gravity="center_vertical|center"
-        android:layout_marginHorizontal="@dimen/m"
-        android:src="@drawable/ic_question"/>
+        android:src="@drawable/quiz_time_png_image"/>
+
     <TextView
         android:id="@+id/tvHeader"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:textStyle="bold"
-        android:textSize="@dimen/xl"
-
+        android:layout_height="wrap_content"
+        android:textStyle="bold|italic"
+        android:layout_gravity="center_vertical"
+        android:textSize="@dimen/l"
         android:layout_marginEnd="@dimen/xxxxxxl"
         android:layout_marginVertical="@dimen/m"
         android:text="@string/app_name"/>
