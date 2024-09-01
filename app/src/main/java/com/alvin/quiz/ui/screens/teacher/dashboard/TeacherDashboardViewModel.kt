@@ -36,7 +36,8 @@ class TeacherDashboardViewModel @Inject constructor(
         viewModelScope.launch{
             errorHandler {
                 quizRepository.deleteQuiz(quizId)
-                finish.emit(Unit)}
+                finish.emit(Unit)
+            }
         }
     }
 
