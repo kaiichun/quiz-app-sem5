@@ -6,8 +6,8 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.alvin.quiz.MainActivity
 import com.alvin.quiz.R
-import com.alvin.quiz.core.di.utils.UserRole
 import com.alvin.quiz.databinding.FragmentLoginBinding
 import com.alvin.quiz.ui.screens.base.BaseFragment
 import com.google.android.material.snackbar.Snackbar
@@ -40,14 +40,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
         lifecycleScope.launch {
             viewModel.success.collect { role ->
                 Toast.makeText(requireContext(), "Welcome back to Quiz App", Toast.LENGTH_SHORT).show()
-                when (role) {
-                    UserRole.TEACHER -> findNavController().navigate(
-                        LoginFragmentDirections.actionLoginToTeacherHome()
-                    )
-                    UserRole.STUDENT -> findNavController().navigate(
-                        LoginFragmentDirections.actionLoginToStudentHome()
-                    )
-                }
+                (requireActivity() as MainActivity).checkRoleToGetNavView(role)
             }
         }
 
@@ -62,30 +55,27 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
             }
         }
 
-
         lifecycleScope.launch {
             viewModel.error.collect { errorMessage ->
-                errorMessage?.let {
+                errorMessage.let {
                     Snackbar.make(requireView(), it, Snackbar.LENGTH_LONG).show()
                 }
             }
         }
     }
 
+
     private fun loading() {
         binding?.loadingOverlayLogin?.isVisible = true
         val tvLoadingText = binding?.tvLoginLoadingText
-
         lifecycleScope.launch {
             var progress = 0
             while (progress < 100) {
                 val randomIncrement = Random.nextInt(1, 15)
                 progress += randomIncrement
-
                 if (progress > 100) {
                     progress = 100
                 }
-
                 tvLoadingText?.text = getString(R.string.verifying, progress)
                 delay(Random.nextLong(50, 250))
             }

@@ -55,6 +55,7 @@
     <string name="name">Name</string>
     <string name="upload">Upload</string>
     <string name="submit">Submitting %d %%</string>
+    <string name="btn_submit">SUBMIT</string>
     <string name="completed_quiz">You have already completed this quiz</string>
     <string name="state">"State: "</string>
     <string name="authentication">Authentication…</string>
@@ -81,4 +82,5 @@
     <string name="no_ranking_available">No Ranking Available</string>
     <string name="no_quizzes_available">No quizzes Available</string>
     <string name="manage_quiz">Manage Quiz</string>
+    <string name="n_a">N/A</string>
 </resources>

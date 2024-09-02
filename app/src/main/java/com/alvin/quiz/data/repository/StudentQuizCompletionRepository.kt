@@ -21,7 +21,6 @@ class StudentQuizCompletionRepository(private val authService: AuthService) {
     fun getAllCompletions() = callbackFlow<List<StudentQuizCompletion>> {
         val listener = getCollection().addSnapshotListener { value, error ->
             if (error != null) {
-                Log.e("StudentQuizCompletionRepo", "Error fetching completions", error)
                 return@addSnapshotListener
             }
             val completions = mutableListOf<StudentQuizCompletion>()
@@ -45,10 +44,10 @@ class StudentQuizCompletionRepository(private val authService: AuthService) {
 
     suspend fun getCompletionByStudentId(studentId: String): StudentQuizCompletion? {
         return try {
-            val document = getCollection().document(studentId).get().await()
-            if (document.exists()) {
-                document.data?.let {
-                    StudentQuizCompletion.fromMap(it, document.id)
+            val snapshot = getCollection().document(studentId).get().await()
+            if (snapshot.exists()) {
+                snapshot.data?.let {
+                    StudentQuizCompletion.fromMap(it, snapshot.id)
                 }
             } else {
                 null

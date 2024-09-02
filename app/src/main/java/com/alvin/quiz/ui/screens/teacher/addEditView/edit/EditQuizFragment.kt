@@ -63,7 +63,6 @@ class EditQuizFragment : BaseAddEditQuizFragment() {
                 }
             }
         }
-
         lifecycleScope.launch {
             viewModel.finish.collect {
                 Snackbar.make(view, "Quiz saved successfully", Snackbar.LENGTH_SHORT).setBackgroundTint(

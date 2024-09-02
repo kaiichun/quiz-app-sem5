@@ -4,12 +4,12 @@
     <item android:title="@string/home"
         android:icon="@drawable/ic_home"
         android:id="@+id/studentHomeFragment"
-        android:visible="true"
+        android:visible="false"
         android:actionLayout="@layout/layout_menu" />
     <item android:title="@string/home"
         android:id="@+id/teacherHomeFragment"
         android:icon="@drawable/ic_home"
-        android:visible="true"
+        android:visible="false"
         android:actionLayout="@layout/layout_menu" />
     <item android:title="@string/dashboard"
         android:id="@+id/teacherDashboardFragment"

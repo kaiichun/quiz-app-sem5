@@ -1,6 +1,7 @@
 package com.alvin.quiz
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
@@ -45,6 +46,37 @@ class MainActivity : AppCompatActivity() {
             hideLoading()
         }
     }
+    fun checkRoleToGetNavView(role: UserRole) {
+        val navView = findViewById<NavigationView>(R.id.navigationView)
+        val menu = navView.menu
+
+        when (role) {
+            UserRole.STUDENT -> {
+                menu.findItem(R.id.teacherHomeFragment).isVisible = false
+                menu.findItem(R.id.studentHomeFragment).isVisible = true
+                menu.findItem(R.id.teacherDashboardFragment).isVisible = false
+                navController.navigate(
+                    R.id.studentHomeFragment,
+                    null,
+                    NavOptions.Builder()
+                        .setPopUpTo(R.id.loginFragment, true)
+                        .build()
+                )
+            }
+            UserRole.TEACHER -> {
+                menu.findItem(R.id.studentHomeFragment).isVisible = false
+                menu.findItem(R.id.teacherHomeFragment).isVisible = true
+                menu.findItem(R.id.teacherDashboardFragment).isVisible = true
+                navController.navigate(
+                    R.id.teacherHomeFragment,
+                    null,
+                    NavOptions.Builder()
+                        .setPopUpTo(R.id.loginFragment, true)
+                        .build()
+                )
+            }
+        }
+    }
 
     private fun showLoading() {
         findViewById<View>(R.id.loading_overlay_login)?.isVisible = true
@@ -64,6 +96,8 @@ class MainActivity : AppCompatActivity() {
 
         val navView = findViewById<NavigationView>(R.id.navigationView)
         navView.setupWithNavController(navController)
+        navView.menu.clear()
+        navView.inflateMenu(R.menu.drawer_menu)
     }
 
     private fun setupToolbar() {
@@ -84,10 +118,12 @@ class MainActivity : AppCompatActivity() {
     private fun setupLogout() {
         val drawerLayout = findViewById<DrawerLayout>(R.id.drawerLayout)
         val navView = findViewById<NavigationView>(R.id.navigationView)
-        navView.menu.findItem(R.id.logout).setOnMenuItemClickListener {
+        navView.apply {
+            menu.findItem(R.id.logout).setOnMenuItemClickListener {
             showLogoutConfirmationDialog()
             drawerLayout.close()
             true
+        }
         }
     }
 
@@ -102,53 +138,21 @@ class MainActivity : AppCompatActivity() {
         }
 
         btnLogout.setOnClickListener {
-            lifecycleScope.launch {
-                val uid = authService.getUid()
-                if (uid != null) {
-                    val userRole = authService.getUserRole(uid)
-                    authService.logout()
-                    when (userRole) {
-                        UserRole.STUDENT -> {
-                            navController.navigate(
-                                R.id.loginFragment,
-                                null,
-                                NavOptions.Builder()
-                                    .setPopUpTo(R.id.studentHomeFragment, true)
-                                    .build()
-                            )
-                        }
-                        UserRole.TEACHER -> {
-                            navController.navigate(
-                                R.id.loginFragment,
-                                null,
-                                NavOptions.Builder()
-                                    .setPopUpTo(R.id.teacherHomeFragment, true)
-                                    .build()
-                            )
-                        }
-                        else -> {
-                            navController.navigate(
-                                R.id.loginFragment,
-                                null,
-                                NavOptions.Builder()
-                                    .setPopUpTo(R.id.studentHomeFragment, true)
-                                    .build()
-                            )
-                        }
-                    }
-                } else {
-                    navController.navigate(
-                        R.id.loginFragment,
-                        null,
-                        NavOptions.Builder()
-                            .setPopUpTo(R.id.loginFragment, true)
-                            .build()
-                    )
-                }
-                alertDialog.dismiss()
+            val drawerLayout = findViewById<DrawerLayout>(R.id.drawerLayout)
+            val uid = authService.getUid()
+            if (uid != null) {
+                authService.logout()
+                drawerLayout.close()
             }
+            navController.navigate(
+                R.id.loginFragment,
+                null,
+                NavOptions.Builder()
+                    .setPopUpTo(R.id.loginFragment, true)
+                    .build()
+            )
+            alertDialog.dismiss()
         }
-
         alertDialog.show()
     }
     private fun navigateBasedOnUserRole() {
@@ -164,6 +168,7 @@ class MainActivity : AppCompatActivity() {
                 when (userRole) {
                     UserRole.STUDENT -> {
                         menu.findItem(R.id.teacherHomeFragment).isVisible = false
+                        menu.findItem(R.id.studentHomeFragment).isVisible = true
                         menu.findItem(R.id.teacherDashboardFragment).isVisible = false
                         navController.navigate(
                             R.id.studentHomeFragment,
@@ -176,6 +181,7 @@ class MainActivity : AppCompatActivity() {
 
                     UserRole.TEACHER -> {
                         menu.findItem(R.id.studentHomeFragment).isVisible = false
+                        menu.findItem(R.id.teacherHomeFragment).isVisible = true
                         navController.navigate(
                             R.id.teacherHomeFragment,
                             null,

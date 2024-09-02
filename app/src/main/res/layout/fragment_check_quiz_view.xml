@@ -41,12 +41,12 @@
                 app:layout_constraintStart_toStartOf="@+id/guidelineVertical3"
                 app:layout_constraintTop_toTopOf="@+id/tvTitle" />
 
-
             <TextView
                 android:id="@+id/tvDesc"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:textSize="14sp"
+                android:hint="@string/n_a"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/guidelineVertical1"
                 app:layout_constraintTop_toBottomOf="@+id/tvTitle" />
@@ -77,29 +77,11 @@
                 android:layout_height="wrap_content"
                 android:text="@string/expiry_date"
                 android:textSize="14sp"
-                app:layout_constraintBottom_toTopOf="@+id/textView4"
-                app:layout_constraintStart_toStartOf="parent" />
-
-            <TextView
-                android:id="@+id/tvExpiryDate"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/date"
-                android:textSize="14sp"
-                app:layout_constraintBottom_toTopOf="@+id/tvQuizState"
-                app:layout_constraintStart_toStartOf="@+id/guidelineVertical1" />
-
-            <TextView
-                android:id="@+id/textView4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/state"
-                android:textSize="14sp"
                 app:layout_constraintBottom_toTopOf="@+id/textView6"
                 app:layout_constraintStart_toStartOf="parent" />
 
             <TextView
-                android:id="@+id/tvQuizState"
+                android:id="@+id/tvExpiryDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/date"
@@ -210,14 +192,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                app:layout_constraintGuide_percent="0.31" />
+                app:layout_constraintGuide_percent="0.25" />
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/guidelineHorizontal3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                app:layout_constraintGuide_percent="0.38" />
+                app:layout_constraintGuide_percent="0.3" />
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/guidelineHorizontal4"

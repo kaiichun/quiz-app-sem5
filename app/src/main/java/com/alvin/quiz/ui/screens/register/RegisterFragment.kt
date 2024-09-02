@@ -7,8 +7,8 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.alvin.quiz.MainActivity
 import com.alvin.quiz.R
-import com.alvin.quiz.core.di.utils.UserRole
 import com.alvin.quiz.databinding.FragmentRegisterBinding
 import com.alvin.quiz.ui.screens.base.BaseFragment
 import com.google.android.material.snackbar.Snackbar
@@ -40,18 +40,14 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>() {
                 )
             }
         }
+        observeViewModel()
+    }
 
+    private fun observeViewModel() {
         lifecycleScope.launch {
             viewModel.success.collect { role ->
-                Toast.makeText(requireContext(), "Welcome to Quiz App", Toast.LENGTH_SHORT).show()
-                when (role) {
-                    UserRole.TEACHER -> findNavController().navigate(
-                        RegisterFragmentDirections.actionRegisterToTeacherHome()
-                    )
-                    UserRole.STUDENT -> findNavController().navigate(
-                        RegisterFragmentDirections.actionRegisterToStudentHome()
-                    )
-                }
+                Toast.makeText(requireContext(), "Welcome back to Quiz App", Toast.LENGTH_SHORT).show()
+                (requireActivity() as MainActivity).checkRoleToGetNavView(role)
             }
         }
 
@@ -63,7 +59,7 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>() {
 
         lifecycleScope.launch {
             viewModel.error.collect { errorMessage ->
-                errorMessage?.let {
+                errorMessage.let {
                     Snackbar.make(requireView(), it, Snackbar.LENGTH_LONG).show()
                 }
             }

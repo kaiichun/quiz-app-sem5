@@ -20,16 +20,8 @@ class AuthService {
         return response.user
     }
 
-    fun isLoggedIn(): Boolean {
-        return authentication.currentUser != null
-    }
-
     fun logout() {
         authentication.signOut()
-    }
-
-    fun getCurrentUser(): FirebaseUser? {
-        return authentication.currentUser
     }
 
     fun getUid(): String? {
@@ -38,11 +30,11 @@ class AuthService {
 
     suspend fun getUserRole(uid: String): UserRole? {
         return try {
-            val documentSnapshot = Firebase.firestore.collection("users")
+            val snapshot = Firebase.firestore.collection("users")
                 .document(uid)
                 .get()
                 .await()
-            documentSnapshot.getString("role")?.let { role ->
+            snapshot.getString("role")?.let { role ->
                 UserRole.valueOf(role)
             }
         } catch (e: Exception) {

@@ -45,13 +45,13 @@
             app:layout_constraintTop_toBottomOf="@+id/tvRanking" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/top3Container"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+                    android:id="@+id/top3Container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:visibility="gone"
                     android:layout_marginBottom="@dimen/s"
                     android:layout_marginTop="@dimen/xl"
-            app:layout_constraintTop_toBottomOf="@+id/tvRanking">
+                    app:layout_constraintTop_toBottomOf="@+id/tvRanking">
 
             <LinearLayout
                 android:id="@+id/firstPlaceLayout"
@@ -193,7 +193,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvRankings"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="340sp"
             android:layout_marginTop="@dimen/s"
             android:layout_marginHorizontal="@dimen/l"
             app:layout_constraintEnd_toEndOf="parent"

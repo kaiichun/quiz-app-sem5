@@ -28,8 +28,8 @@ data class Question(
                 questionText = map["questionText"] as? String ?: "",
                 options = (map["options"] as? List<String>) ?: emptyList(),
                 correctAnswer = map["correctAnswer"] as? String ?: "",
-                timeLimit = map["timeLimit"] as? Int ?: 15,
-                mark = map["mark"] as? Int ?: 1,
+                timeLimit =  (map["timeLimit"] as? Long)?.toInt() ?: map["timeLimit"] as Int,
+                mark =  (map["mark"] as? Long)?.toInt() ?: map["mark"] as Int,
                 createdAt = map["createdAt"] as? Long ?: System.currentTimeMillis(),
             )
         }
